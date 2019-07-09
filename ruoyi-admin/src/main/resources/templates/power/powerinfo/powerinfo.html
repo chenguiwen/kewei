@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('�糧�б�')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								电码01<input type="text" name="powerCode01"/>
+							</li>
+
+							<li>
+								电码02<input type="text" name="powerCode02"/>
+							</li>
+
+							<li>
+								电码03<input type="text" name="powerCode03"/>
+							</li>
+
+							<li>
+								电量01<input type="text" name="powerNum01"/>
+							</li>
+
+							<li>
+								电量02<input type="text" name="powerNum02"/>
+							</li>
+
+							<li>
+								电量03<input type="text" name="powerNum03"/>
+							</li>
+
+							<li>
+								备注<input type="text" name="remark"/>
+							</li>
+
+							<li>
+								创建人<input type="text" name="createBy"/>
+							</li>
+
+							<li>
+								创建时间<input type="text" name="createTime"/>
+							</li>
+
+							<li>
+								修改人<input type="text" name="updateBy"/>
+							</li>
+
+							<li>
+								修改时间<input type="text" name="updateTime"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="power:powerinfo:add">
+					<i class="fa fa-plus"></i> 新增
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="power:powerinfo:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="power:powerinfo:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="power:powerinfo:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('power:powerinfo:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('power:powerinfo:remove')}]];
+        var prefix = ctx + "power/powerinfo";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "电厂",
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'powerInfoId', 
+					title : '数据id',
+					visible: false
+				},
+				{
+					field : 'powerCode01', 
+					title : '电码01',
+					sortable: true
+				},
+				{
+					field : 'powerCode02', 
+					title : '电码02',
+					sortable: true
+				},
+				{
+					field : 'powerCode03', 
+					title : '电码03',
+					sortable: true
+				},
+				{
+					field : 'powerCode04', 
+					title : '电码04',
+					sortable: true
+				},
+				{
+					field : 'powerCode05', 
+					title : '电码05',
+					sortable: true
+				},
+				{
+					field : 'powerCode06', 
+					title : '电码06',
+					sortable: true
+				},
+				{
+					field : 'powerCode07', 
+					title : '电码07',
+					sortable: true
+				},
+				{
+					field : 'powerCode08', 
+					title : '电码08',
+					sortable: true
+				},
+				{
+					field : 'powerCode09', 
+					title : '电码09',
+					sortable: true
+				},
+				{
+					field : 'powerCode10', 
+					title : '电码10',
+					sortable: true
+				},
+				{
+					field : 'powerCode11', 
+					title : '电码11',
+					sortable: true
+				},
+				{
+					field : 'powerCode12', 
+					title : '电码12',
+					sortable: true
+				},
+				{
+					field : 'powerCode13', 
+					title : '电码13',
+					sortable: true
+				},
+				{
+					field : 'powerCode14', 
+					title : '电码14',
+					sortable: true
+				},
+				{
+					field : 'powerCode15', 
+					title : '电码15',
+					sortable: true
+				},
+				{
+					field : 'powerCode16', 
+					title : '电码16',
+					sortable: true
+				},
+				{
+					field : 'powerCode17', 
+					title : '电码17',
+					sortable: true
+				},
+				{
+					field : 'powerCode18', 
+					title : '电码18',
+					sortable: true
+				},
+				{
+					field : 'powerCode19', 
+					title : '电码19',
+					sortable: true
+				},
+				{
+					field : 'powerCode20', 
+					title : '电码20',
+					sortable: true
+				},
+				{
+					field : 'powerNum01', 
+					title : '电量01',
+					sortable: true
+				},
+				{
+					field : 'powerNum02', 
+					title : '电量02',
+					sortable: true
+				},
+				{
+					field : 'powerNum03', 
+					title : '电量03',
+					sortable: true
+				},
+				{
+					field : 'powerNum04', 
+					title : '电量04',
+					sortable: true
+				},
+				{
+					field : 'powerNum05', 
+					title : '电量05',
+					sortable: true
+				},
+				{
+					field : 'powerNum06', 
+					title : '电量06',
+					sortable: true
+				},
+				{
+					field : 'powerNum07', 
+					title : '电量07',
+					sortable: true
+				},
+				{
+					field : 'powerNum08', 
+					title : '电量08',
+					sortable: true
+				},
+				{
+					field : 'powerNum09', 
+					title : '电量09',
+					sortable: true
+				},
+				{
+					field : 'powerNum10', 
+					title : '电量10',
+					sortable: true
+				},
+				{
+					field : 'powerNum11', 
+					title : '电量11',
+					sortable: true
+				},
+				{
+					field : 'powerNum12', 
+					title : '电量12',
+					sortable: true
+				},
+				{
+					field : 'powerNum13', 
+					title : '电量13',
+					sortable: true
+				},
+				{
+					field : 'powerNum14', 
+					title : '电量14',
+					sortable: true
+				},
+				{
+					field : 'powerNum15', 
+					title : '电量15',
+					sortable: true
+				},
+				{
+					field : 'powerNum16', 
+					title : '电量16',
+					sortable: true
+				},
+				{
+					field : 'powerNum17', 
+					title : '电量17',
+					sortable: true
+				},
+				{
+					field : 'powerNum18', 
+					title : '电量18',
+					sortable: true
+				},
+				{
+					field : 'powerNum19', 
+					title : '电量19',
+					sortable: true
+				},
+				{
+					field : 'powerNum20', 
+					title : '电量20',
+					sortable: true
+				},
+				{
+					field : 'remark', 
+					title : '备注',
+					sortable: true
+				},
+				{
+					field : 'delFlag', 
+					title : '删除标记',
+					sortable: true
+				},
+				{
+					field : 'createBy', 
+					title : '创建人',
+					sortable: true
+				},
+				{
+					field : 'createTime', 
+					title : '创建时间',
+					sortable: true
+				},
+				{
+					field : 'updateBy', 
+					title : '修改人',
+					sortable: true
+				},
+				{
+					field : 'updateTime', 
+					title : '修改时间',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.powerInfoId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.powerInfoId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
