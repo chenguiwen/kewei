@@ -112,12 +112,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
      
     <select id="selectPowerinfoById" parameterType="Long" resultMap="PowerinfoResult">
-        <include refid="selectPowerinfoVo"/>
+        <include refid="selectPowerinfoVo"/> 
         where powerInfoId = #{powerInfoId}
     </select>
     
-    <select id="selectPowerinfoListByIds" parameterType="String">
-    	<include refid="selectPowerinfoVo"/>
+    <select id="selectPowerinfoListByIds" parameterType="String" resultMap="PowerinfoResult">
+    	<include refid="selectPowerinfoVo"/> where powerInfoId in 
         <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
             #{powerInfoId}
         </foreach>
@@ -298,16 +298,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where powerInfoId = #{powerInfoId}
     </update>
 	
-    <update id="commitPowerinfoList" parameterType="String">
+	
+	
+	
+    <update id="commitPowerinfoList" parameterType="java.util.List">
         update sys_powerinfo 
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="delFlag != null  and delFlag != ''  ">del_flag = '2',</if>
-            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
-            <if test="updateTime != null  ">update_time = #{updateTime},</if>
-        </trim>        
+            <trim prefix="set" suffixOverrides=",">
+	        	del_flag = '2' ,  
+	            <trim prefix="update_by = case" suffix="end,">
+	    			<foreach collection="list" item="powerinfo"  index="index">
+                        <if test="powerinfo.updateBy != null">
+                         	when powerInfoId = #{powerinfo.powerInfoId} then #{powerinfo.updateBy}
+                        </if>
+  		            </foreach>
+				</trim>
+				<trim prefix="update_time = case" suffix="end,">
+					<foreach collection="list" item="powerinfo" index="index">
+                        <if test="powerinfo.updateTime != null">
+                         	when powerInfoId = #{powerinfo.powerInfoId} then #{powerinfo.updateTime}
+                        </if>
+		    		</foreach>
+        		</trim>
+       		</trim>
         where powerInfoId in 
-        <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
-            #{powerInfoId}
-        </foreach>
-    </update>        
+        <foreach collection="list" index="index" item="powerinfo" open="(" separator="," close=")">
+    	    #{powerinfo.powerInfoId}
+	    </foreach>
+    </update>    
+
 </mapper>

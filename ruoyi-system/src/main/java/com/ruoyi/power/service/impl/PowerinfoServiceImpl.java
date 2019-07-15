@@ -88,11 +88,7 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 
 	@Override
 	public int commitPowerinfoList(List<Powerinfo> powerinfos) {
-		String[] ids = new String[powerinfos.size()];
-		for (int i = 0; i < powerinfos.size(); i ++) {
-			ids[i] = powerinfos.get(i).getPowerInfoId().toString();
-		}
-		return powerinfoMapper.commitPowerinfoList(ids);
+		return powerinfoMapper.commitPowerinfoList(powerinfos);
 	}
 	
 }

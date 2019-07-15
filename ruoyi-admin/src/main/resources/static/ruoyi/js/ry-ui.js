@@ -794,6 +794,19 @@
         			$.operate.submit(url, "post", "json", data);
         		});
             },
+            // 批量删除信息
+            commit: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要提交选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.commitUrl;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
             // 清空信息
             clean: function() {
             	$.modal.confirm("确定清空所有" + $.table._option.modalName + "吗？", function() {

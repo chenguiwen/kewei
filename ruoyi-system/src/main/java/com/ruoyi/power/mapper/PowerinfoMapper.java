@@ -67,5 +67,5 @@ public interface PowerinfoMapper
 	/**
 	 * 批量提交
 	 * */
-	public int commitPowerinfoList(String[] powerInfoIds);	
+	public int commitPowerinfoList(List<Powerinfo> powerinfos);	
 }
