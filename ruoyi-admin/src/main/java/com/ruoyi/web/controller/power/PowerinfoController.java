@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.power;
 
+import java.util.Date;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 
 /**
  * 电厂 信息操作处理
@@ -124,4 +126,18 @@ public class PowerinfoController extends BaseController
 		return toAjax(powerinfoService.deletePowerinfoByIds(ids));
 	}
 	
+	@RequiresPermissions("power:powerinfo:commit")
+	@Log(title = "电厂",businessType = BusinessType.COMMIT)
+	@PostMapping("/commit")
+	@ResponseBody
+	public AjaxResult commit(String ids) {
+		List<Powerinfo> powerinfos = powerinfoService.selectPowerinfoListByIds(ids);
+		String userName = ShiroUtils.getSysUser().getUserName();
+		for (Powerinfo powerinfo : powerinfos) {
+			powerinfo.setUpdateBy(userName);
+			powerinfo.setUpdateTime(new Date());
+			powerinfo.setDelFlag("2");
+		}
+		return toAjax(powerinfoService.commitPowerinfoList(powerinfos));
+	}
 }

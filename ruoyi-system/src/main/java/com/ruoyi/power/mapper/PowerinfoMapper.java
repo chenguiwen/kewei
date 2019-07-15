@@ -26,7 +26,7 @@ public interface PowerinfoMapper
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
-	
+	public List<Powerinfo> selectPowerinfoListByIds(String[] ids);
 	/**
      * 新增电厂
      * 
@@ -59,4 +59,13 @@ public interface PowerinfoMapper
      */
 	public int deletePowerinfoByIds(String[] powerInfoIds);
 	
+	/**
+	 * 提交
+	 * */
+	public int commitPowerinfoById(Long powerInfoId);
+	
+	/**
+	 * 批量提交
+	 * */
+	public int commitPowerinfoList(String[] powerInfoIds);	
 }

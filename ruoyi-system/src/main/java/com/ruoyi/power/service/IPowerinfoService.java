@@ -26,6 +26,7 @@ public interface IPowerinfoService
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
+	public List<Powerinfo> selectPowerinfoListByIds(String ids);
 	
 	/**
      * 新增电厂
@@ -51,4 +52,8 @@ public interface IPowerinfoService
      */
 	public int deletePowerinfoByIds(String ids);
 	
+	/**
+	 * 批量提交
+	 * */
+	public int commitPowerinfoList(List<Powerinfo> powerinfos);
 }

@@ -43,6 +43,12 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	{
 	    return powerinfoMapper.selectPowerinfoList(powerinfo);
 	}
+
+	@Override
+	public List<Powerinfo> selectPowerinfoListByIds(String ids) {
+		return powerinfoMapper.selectPowerinfoListByIds(Convert.toStrArray(ids));
+	}
+
 	
     /**
      * 新增电厂
@@ -78,6 +84,15 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	public int deletePowerinfoByIds(String ids)
 	{
 		return powerinfoMapper.deletePowerinfoByIds(Convert.toStrArray(ids));
+	}
+
+	@Override
+	public int commitPowerinfoList(List<Powerinfo> powerinfos) {
+		String[] ids = new String[powerinfos.size()];
+		for (int i = 0; i < powerinfos.size(); i ++) {
+			ids[i] = powerinfos.get(i).getPowerInfoId().toString();
+		}
+		return powerinfoMapper.commitPowerinfoList(ids);
 	}
 	
 }
