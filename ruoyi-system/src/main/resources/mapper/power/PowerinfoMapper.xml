@@ -52,10 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="company"    column="company"    />
     </resultMap>
 	
 	<sql id="selectPowerinfoVo">
-        select powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, powerCode07, powerCode08, powerCode09, powerCode10, powerCode11, powerCode12, powerCode13, powerCode14, powerCode15, powerCode16, powerCode17, powerCode18, powerCode19, powerCode20, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, powerNum07, powerNum08, powerNum09, powerNum10, powerNum11, powerNum12, powerNum13, powerNum14, powerNum15, powerNum16, powerNum17, powerNum18, powerNum19, powerNum20, remark, del_flag, create_by, create_time, update_by, update_time from sys_powerinfo
+        select powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, powerCode07, powerCode08, powerCode09, powerCode10, powerCode11, powerCode12, powerCode13, powerCode14, powerCode15, powerCode16, powerCode17, powerCode18, powerCode19, powerCode20, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, powerNum07, powerNum08, powerNum09, powerNum10, powerNum11, powerNum12, powerNum13, powerNum14, powerNum15, powerNum16, powerNum17, powerNum18, powerNum19, powerNum20, remark, del_flag, create_by, create_time, update_by, update_time,company from sys_powerinfo
     </sql>
 	
     <select id="selectPowerinfoList" parameterType="Powerinfo" resultMap="PowerinfoResult">
@@ -105,9 +106,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
              <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
              <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
-             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="createTime != null "> and create_time like #{createTime}"%"</if>
              <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
              <if test="updateTime != null "> and update_time = #{updateTime}</if>
+             <if test="company != null "> and company = #{company}</if>
          </where>
     </select>
      
@@ -122,7 +124,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{powerInfoId}
         </foreach>
     </select>    
-    
+    <select id="selectPowerinfoListCommited" resultMap="PowerinfoResult">
+        select powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, powerCode07, powerCode08, powerCode09, powerCode10, powerCode11, powerCode12, powerCode13, powerCode14, powerCode15, powerCode16, powerCode17, powerCode18, powerCode19, powerCode20, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, powerNum07, powerNum08, powerNum09, powerNum10, powerNum11, powerNum12, powerNum13, powerNum14, powerNum15, powerNum16, powerNum17, powerNum18, powerNum19, powerNum20, remark, del_flag, create_by, create_time, update_by, update_time,company from sys_powerinfo
+    	where del_flag = '2'
+    </select>
     <insert id="insertPowerinfo" parameterType="Powerinfo" useGeneratedKeys="true" keyProperty="powerInfoId">
         insert into sys_powerinfo
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -172,6 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null  ">create_time,</if>
 			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
 			<if test="updateTime != null  ">update_time,</if>
+			<if test="company != null  ">company,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="powerCode01 != null  ">#{powerCode01},</if>
@@ -220,6 +226,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null  ">#{createTime},</if>
 			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
 			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="company != null  ">#{company},</if>
          </trim>
     </insert>
 	 
@@ -272,6 +279,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null  ">create_time = #{createTime},</if>
             <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
             <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="company != null  ">company = #{company},</if>
         </trim>
         where powerInfoId = #{powerInfoId}
     </update>
@@ -297,9 +305,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where powerInfoId = #{powerInfoId}
     </update>
-	
-	
-	
 	
     <update id="commitPowerinfoList" parameterType="java.util.List">
         update sys_powerinfo 

@@ -1,7 +1,10 @@
 package com.ruoyi.web.controller.power;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.constant.RoleConstants;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.power.domain.Powerinfo;
 import com.ruoyi.power.service.IPowerinfoService;
@@ -48,22 +52,16 @@ public class PowerinfoController extends BaseController
 	{
 		SysUser user = ShiroUtils.getSysUser();
 		
-		Long[] roleIds = user.getRoleIds();
-		if(null == roleIds || 0 == roleIds.length) {
-			SysRole role = roleService.selectRoleById(user.getRoleId());
-			if(role == null) {
+		Set<String> roleIds = roleService.selectRoleKeys(user.getUserId());
+		if(null == roleIds || 0 == roleIds.size()) {
 			    return prefix + "/powerinfo";								
-			}
-			String roleName = role.getRoleName();
-			if("结算员".equals(roleName)) {
-			    return prefix + "2/powerinfo2";				
-			}
 		}
-		for (int i = 0; i < roleIds.length; i++) {
-			SysRole role = roleService.selectRoleById(roleIds[i]);
-			if("结算员".equals(role.getRoleName())) {
+		Iterator<String> iter = roleIds.iterator();
+		while(iter.hasNext()) {
+			Object roleKey = iter.next();
+			if(RoleConstants.JIESUAN.equals(roleKey)) {
 			    return prefix + "2/powerinfo2";				
-			}
+			}			
 		}
 	    return prefix + "/powerinfo";
 	}
@@ -77,9 +75,28 @@ public class PowerinfoController extends BaseController
 	public TableDataInfo list(Powerinfo powerinfo)
 	{
 		startPage();
+		//TODO 判断是结算员还是核算员或者管理员
         List<Powerinfo> list = powerinfoService.selectPowerinfoList(powerinfo);
 		return getDataTable(list);
 	}
+	
+	
+	
+	
+	/**
+	 * 查询电厂列表
+	 */
+	@RequiresPermissions("power:powerinfo:list")
+	@PostMapping("/jiesuanlist")
+	@ResponseBody
+	public TableDataInfo Jiesuanlist(Powerinfo powerinfo)
+	{
+		startPage();
+        List<Powerinfo> list = powerinfoService.selectPowerinfoList(powerinfo);
+		return getDataTable(list);
+	}
+	
+	
 	
 	
 	/**
@@ -151,6 +168,9 @@ public class PowerinfoController extends BaseController
 		return toAjax(powerinfoService.deletePowerinfoByIds(ids));
 	}
 	
+	/**
+	 * 提交电厂数据
+	 * */
 	@RequiresPermissions("power:powerinfo:commit")
 	@Log(title = "电厂",businessType = BusinessType.COMMIT)
 	@PostMapping("/commit")

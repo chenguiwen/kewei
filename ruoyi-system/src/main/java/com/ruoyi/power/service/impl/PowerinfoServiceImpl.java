@@ -49,7 +49,10 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 		return powerinfoMapper.selectPowerinfoListByIds(Convert.toStrArray(ids));
 	}
 
-	
+	@Override
+	public List<Powerinfo> selectPowerinfoListCommited() {
+		return powerinfoMapper.selectPowerinfoListCommited();
+	}
     /**
      * 新增电厂
      * 

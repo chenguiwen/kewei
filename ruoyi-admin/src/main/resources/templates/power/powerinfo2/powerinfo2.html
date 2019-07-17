@@ -74,11 +74,11 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('power:powerinfo:edit')}]];
         var removeFlag = [[${@permission.hasPermi('power:powerinfo:remove')}]];
-        var prefix = ctx + "power/powerinfo2";
+        var prefix = ctx + "power/powerinfo";
 
         $(function() {
             var options = {
-                url: prefix + "/list",
+                url: prefix + "/jiesuanlist",
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
