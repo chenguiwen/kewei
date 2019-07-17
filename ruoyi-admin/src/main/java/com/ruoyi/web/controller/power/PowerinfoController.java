@@ -15,6 +15,9 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.power.domain.Powerinfo;
 import com.ruoyi.power.service.IPowerinfoService;
+import com.ruoyi.system.domain.SysRole;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -36,10 +39,32 @@ public class PowerinfoController extends BaseController
 	@Autowired
 	private IPowerinfoService powerinfoService;
 	
+	@Autowired
+	private ISysRoleService roleService;
+	
 	@RequiresPermissions("power:powerinfo:view")
 	@GetMapping()
 	public String powerinfo()
 	{
+		SysUser user = ShiroUtils.getSysUser();
+		
+		Long[] roleIds = user.getRoleIds();
+		if(null == roleIds || 0 == roleIds.length) {
+			SysRole role = roleService.selectRoleById(user.getRoleId());
+			if(role == null) {
+			    return prefix + "/powerinfo";								
+			}
+			String roleName = role.getRoleName();
+			if("结算员".equals(roleName)) {
+			    return prefix + "2/powerinfo2";				
+			}
+		}
+		for (int i = 0; i < roleIds.length; i++) {
+			SysRole role = roleService.selectRoleById(roleIds[i]);
+			if("结算员".equals(role.getRoleName())) {
+			    return prefix + "2/powerinfo2";				
+			}
+		}
 	    return prefix + "/powerinfo";
 	}
 	
