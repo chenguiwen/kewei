@@ -19,7 +19,6 @@ import com.ruoyi.common.constant.RoleConstants;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.power.domain.Powerinfo;
 import com.ruoyi.power.service.IPowerinfoService;
-import com.ruoyi.system.domain.SysRole;
 import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.common.core.controller.BaseController;
@@ -46,22 +45,32 @@ public class PowerinfoController extends BaseController
 	@Autowired
 	private ISysRoleService roleService;
 	
-	@RequiresPermissions("power:powerinfo:view")
-	@GetMapping()
-	public String powerinfo()
-	{
+	public String getRoleKey() {
+		
 		SysUser user = ShiroUtils.getSysUser();
 		
 		Set<String> roleIds = roleService.selectRoleKeys(user.getUserId());
 		if(null == roleIds || 0 == roleIds.size()) {
-			    return prefix + "/powerinfo";								
+			    return "admin";								
 		}
 		Iterator<String> iter = roleIds.iterator();
 		while(iter.hasNext()) {
 			Object roleKey = iter.next();
 			if(RoleConstants.JIESUAN.equals(roleKey)) {
-			    return prefix + "2/powerinfo2";				
+			    return "jiesuan";				
 			}			
+		}
+		return "hesuan";
+	}
+	
+	
+	@RequiresPermissions("power:powerinfo:view")
+	@GetMapping()
+	public String powerinfo()
+	{
+		String roleKey = getRoleKey();
+		if(RoleConstants.JIESUAN.equals(roleKey)) {
+			    return prefix + "2/powerinfo2";				
 		}
 	    return prefix + "/powerinfo";
 	}

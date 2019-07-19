@@ -61,7 +61,7 @@
 				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="power:powerinfo:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
-				<a class="btn btn-warning" onclick="$.operate.commit()" shiro:hasPermission="power:powerinfo:commit">
+				<a class="btn btn-warning btn-commit disabled" onclick="$.operate.commit()" shiro:hasPermission="power:powerinfo:commit">
 						<i class="fa fa-upload"></i> 提交
 				 </a>
 			</div>
@@ -74,11 +74,11 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('power:powerinfo:edit')}]];
         var removeFlag = [[${@permission.hasPermi('power:powerinfo:remove')}]];
-        var prefix = ctx + "power/powerinfo";
+        var prefix = ctx + "power/powerinfo2";
 
         $(function() {
             var options = {
-                url: prefix + "/jiesuanlist",
+                url: prefix + "/list",
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",

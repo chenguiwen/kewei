@@ -140,6 +140,9 @@
             		$('#' + $.table._option.toolbar + ' .btn-del').toggleClass('disabled', !rows.length);
             		$('#' + $.table._option.toolbar + ' .btn-edit').toggleClass('disabled', rows.length!=1);
             		$('#' + $.table._option.toolbar + ' .btn-detail').toggleClass('disabled', rows.length!=1);
+            		//add by chengw
+            		$('#' + $.table._option.toolbar + ' .btn-commit').toggleClass('disabled', rows.length < 1);
+            		//add by chengw
             	});
             	// 绑定选中事件、取消事件、全部选中、全部取消
             	$.btTable.on("check.bs.table check-all.bs.table uncheck.bs.table uncheck-all.bs.table", function (e, rows) {
@@ -805,7 +808,7 @@
         			var url = $.table._option.commitUrl;
         			var data = { "ids": rows.join() };
         			$.operate.submit(url, "post", "json", data);
-        		});
+        		});          	
             },
             // 清空信息
             clean: function() {
@@ -840,7 +843,7 @@
             			$.modal.alertWarning("请至少选择一条记录");
             			return;
             		}
-                    var url = $.table._option.updateUrl.replace("{id}", row[$.table._option.uniqueId]);
+                	var url = $.table._option.updateUrl.replace("{id}", row[$.table._option.uniqueId]);
                     $.modal.open("修改" + $.table._option.modalName, url);
             	} else {
             	    $.modal.open("修改" + $.table._option.modalName, $.operate.editUrl(id));
