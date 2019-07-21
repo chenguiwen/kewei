@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.power;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,10 @@ import com.ruoyi.common.constant.RoleConstants;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.power.domain.Powerinfo;
 import com.ruoyi.power.service.IPowerinfoService;
+import com.ruoyi.system.domain.SysDept;
+import com.ruoyi.system.domain.SysRole;
 import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysDeptService;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -45,6 +49,9 @@ public class PowerinfoController extends BaseController
 	@Autowired
 	private ISysRoleService roleService;
 	
+	@Autowired
+	private ISysDeptService deptService;
+	
 	public String getRoleKey() {
 		
 		SysUser user = ShiroUtils.getSysUser();
@@ -68,10 +75,6 @@ public class PowerinfoController extends BaseController
 	@GetMapping()
 	public String powerinfo()
 	{
-		String roleKey = getRoleKey();
-		if(RoleConstants.JIESUAN.equals(roleKey)) {
-			    return prefix + "2/powerinfo2";				
-		}
 	    return prefix + "/powerinfo";
 	}
 	
@@ -84,29 +87,36 @@ public class PowerinfoController extends BaseController
 	public TableDataInfo list(Powerinfo powerinfo)
 	{
 		startPage();
-		//TODO 判断是结算员还是核算员或者管理员
-        List<Powerinfo> list = powerinfoService.selectPowerinfoList(powerinfo);
+		SysUser user = ShiroUtils.getSysUser();
+		List<SysRole> roles = user.getRoles();
+		int role = 0;
+		for(int i = 0; i < roles.size(); i ++) {
+			String roleKey = roles.get(i).getRoleKey();
+			//判断是否为核算员
+			if(RoleConstants.HESUAN.equals(roleKey) && role < 2 ) {
+				role = 1;
+			}
+			//判断是否为管理员
+			if(RoleConstants.ADMIN.equals(roleKey)) {
+				role = 2;
+			}
+		}
+		List<Powerinfo> list = new ArrayList<Powerinfo>();
+		if(role == 0) {//结算员
+			Long company = user.getDeptId();
+			SysDept dept = deptService.selectDeptById(company);
+        	list = powerinfoService.selectPowerinfoList(dept.getParentId());
+		}
+		else if(role == 1) {//核算员
+			Long company = user.getDeptId();
+			SysDept dept = deptService.selectDeptById(company);
+        	list = powerinfoService.selectPowerinfoListCommited(dept.getParentId());			
+		}
+		else {
+        	list = powerinfoService.selectPowerinfoList(powerinfo);			
+		}
 		return getDataTable(list);
 	}
-	
-	
-	
-	
-	/**
-	 * 查询电厂列表
-	 */
-	@RequiresPermissions("power:powerinfo:list")
-	@PostMapping("/jiesuanlist")
-	@ResponseBody
-	public TableDataInfo Jiesuanlist(Powerinfo powerinfo)
-	{
-		startPage();
-        List<Powerinfo> list = powerinfoService.selectPowerinfoList(powerinfo);
-		return getDataTable(list);
-	}
-	
-	
-	
 	
 	/**
 	 * 导出电厂列表

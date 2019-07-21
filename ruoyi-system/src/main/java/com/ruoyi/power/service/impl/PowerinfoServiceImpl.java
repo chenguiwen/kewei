@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.power.mapper.PowerinfoMapper;
 import com.ruoyi.power.domain.Powerinfo;
 import com.ruoyi.power.service.IPowerinfoService;
+import com.ruoyi.common.annotation.DataScope;
 import com.ruoyi.common.core.text.Convert;
 
 /**
@@ -39,9 +40,16 @@ public class PowerinfoServiceImpl implements IPowerinfoService
      * @return 电厂集合
      */
 	@Override
+    @DataScope(tableAlias = "sys_powerinfo")
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo)
 	{
 	    return powerinfoMapper.selectPowerinfoList(powerinfo);
+	}
+	
+	@Override
+	public List<Powerinfo> selectPowerinfoList(Long company)
+	{
+	    return powerinfoMapper.selectPowerinfo(company);
 	}
 
 	@Override
@@ -50,8 +58,8 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	}
 
 	@Override
-	public List<Powerinfo> selectPowerinfoListCommited() {
-		return powerinfoMapper.selectPowerinfoListCommited();
+	public List<Powerinfo> selectPowerinfoListCommited(Long company) {
+		return powerinfoMapper.selectPowerinfoListCommited(company);
 	}
     /**
      * 新增电厂

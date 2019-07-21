@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.power.mapper.PowernumMapper;
 import com.ruoyi.power.domain.Powernum;
 import com.ruoyi.power.service.IPowernumService;
+import com.ruoyi.common.annotation.DataScope;
 import com.ruoyi.common.core.text.Convert;
 
 /**
@@ -39,11 +40,30 @@ public class PowernumServiceImpl implements IPowernumService
      * @return 电力公司集合
      */
 	@Override
+    @DataScope(tableAlias = "sys_powernum")
 	public List<Powernum> selectPowernumList(Powernum powernum)
 	{
 	    return powernumMapper.selectPowernumList(powernum);
 	}
-	
+
+	@Override
+    @DataScope(tableAlias = "sys_powernum")
+	public List<Powernum> selectPowernumListCommited(Long company) {
+		return powernumMapper.selectPowernumListCommited(company);
+	}
+
+	@Override
+    @DataScope(tableAlias = "sys_powernum")
+	public List<Powernum> selectPowernumList(Long company) {
+		return powernumMapper.selectPowernum(company);
+	}
+
+	@Override
+    @DataScope(tableAlias = "sys_powernum")
+	public List<Powernum> selectPowernumListByIds(String ids) {
+		return powernumMapper.selectPowernumListByIds(ids);
+	}	
+
     /**
      * 新增电力公司
      * 

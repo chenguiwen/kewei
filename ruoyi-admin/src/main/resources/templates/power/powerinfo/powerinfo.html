@@ -11,6 +11,10 @@
 					<div class="select-list">
 						<ul>
 							<li>
+								所属电厂<input type="text" name="company"/>
+							</li>
+
+							<li>
 								A线有功反向(总)<input type="text" name="powerCode01"/>
 							</li>
 
@@ -119,6 +123,11 @@
 					visible: false
 				},
 				{
+					field : 'dept.deptName', 
+					title : '所属电厂',
+					sortable: true
+				},
+				{
 					field : 'powerCode01', 
 					title : 'A线有功反向(总)',
 					sortable: true
@@ -221,6 +230,7 @@
             };
             $.table.init(options);
         });
+        
     </script>
 </body>
 </html>

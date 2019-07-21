@@ -26,6 +26,9 @@ public interface IPowernumService
      * @return 电力公司集合
      */
 	public List<Powernum> selectPowernumList(Powernum powernum);
+	public List<Powernum> selectPowernumListCommited(Long company);
+	public List<Powernum> selectPowernumList(Long company);
+	public List<Powernum> selectPowernumListByIds(String ids);
 	
 	/**
      * 新增电力公司

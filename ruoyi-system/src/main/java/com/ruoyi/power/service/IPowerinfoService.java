@@ -26,8 +26,9 @@ public interface IPowerinfoService
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
+	public List<Powerinfo> selectPowerinfoList(Long company);
 	public List<Powerinfo> selectPowerinfoListByIds(String ids);
-	public List<Powerinfo> selectPowerinfoListCommited();
+	public List<Powerinfo> selectPowerinfoListCommited(Long company);
 	
 	/**
      * 新增电厂

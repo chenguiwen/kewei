@@ -2,8 +2,16 @@ package com.ruoyi.power.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.annotation.Excels;
+import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.core.domain.BaseEntity;
+import com.ruoyi.system.domain.SysDept;
+
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 电力公司表 sys_powernum
@@ -31,8 +39,18 @@ public class Powernum extends BaseEntity
 	private BigDecimal powerNum06;
 	/** 提交标志（0代表保存态 2代表提交态） */
 	private String comFlag;
-	/**  */
+	/** 单据日期 */
 	private Long company;
+	/** 单据日期 */
+    @JsonFormat(pattern = "yyyy-MM")
+	private Date billDate;
+    /** 部门对象 */
+    @Excels({
+        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+    })
+    private SysDept dept;
+
 
 	public void setPowerInfoId(Long powerInfoId) 
 	{
@@ -116,7 +134,29 @@ public class Powernum extends BaseEntity
 		return company;
 	}
 
-    public String toString() {
+    public Date getBillDate() {
+		return billDate;
+	}
+
+	public void setBillDate(Date billDate) {
+		this.billDate = billDate;
+	}
+
+    public SysDept getDept()
+    {
+        if (dept == null)
+        {
+            dept = new SysDept();
+        }
+        return dept;
+    }
+
+    public void setDept(SysDept dept)
+    {
+        this.dept = dept;
+    }
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("powerInfoId", getPowerInfoId())
             .append("powerNum01", getPowerNum01())

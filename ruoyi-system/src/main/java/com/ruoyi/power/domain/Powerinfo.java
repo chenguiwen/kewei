@@ -2,8 +2,16 @@ package com.ruoyi.power.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.annotation.Excels;
+import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.core.domain.BaseEntity;
+import com.ruoyi.system.domain.SysDept;
+
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 电厂表 sys_powerinfo
@@ -101,6 +109,15 @@ public class Powerinfo extends BaseEntity
 	private String delFlag;
 	/** 所属公司 */
 	private Long company;
+	/** 单据日期 */
+    @JsonFormat(pattern = "yyyy-MM")
+	private Date billDate;
+    /** 部门对象 */
+    @Excels({
+        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+    })
+    private SysDept dept;
 
 	public void setPowerInfoId(Long powerInfoId) 
 	{
@@ -489,6 +506,29 @@ public class Powerinfo extends BaseEntity
 		this.company = company;
 	}
 
+	public Date getBillDate() {
+		return billDate;
+	}
+
+	public void setBillDate(Date billDate) {
+		this.billDate = billDate;
+	}
+
+    public SysDept getDept()
+    {
+        if (dept == null)
+        {
+            dept = new SysDept();
+        }
+        return dept;
+    }
+
+    public void setDept(SysDept dept)
+    {
+        this.dept = dept;
+    }
+
+
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("powerInfoId", getPowerInfoId())
@@ -539,6 +579,7 @@ public class Powerinfo extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("company", getCompany())
+            .append("dept", getDept())
             .toString();
     }
 }
