@@ -4,7 +4,8 @@
 	<th:block th:include="include :: header('�糧�б�')" />
 </head>
 <body class="gray-bg">
-     <div class="container-div">
+
+	<div class="container-div ui-layout-center">
 		<div class="row">
 			<div class="col-sm-12 search-collapse">
 				<form id="formId">
@@ -66,8 +67,11 @@
 								备注<input type="text" name="remark"/>
 							</li>
 
-							<li>
-								创建时间<input type="month" name="createTime"/>
+							<li class="select-time">
+								<label>创建时间： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
 							</li>
 
 							<li>

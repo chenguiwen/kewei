@@ -117,7 +117,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
              <if test="delFlag != null  and delFlag != '' "> and del_flag = #{delFlag}</if>
              <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
-             <if test="createTime != null "> and create_time like #{createTime}"%"</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
              <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
              <if test="updateTime != null "> and update_time = #{updateTime}</if>
              <if test="company != null "> and company = #{company}</if>
@@ -131,12 +136,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join sys_dept on sys_powerinfo.company = sys_dept.dept_id			
         <where>  
              <if test="company != null "> and sys_powerinfo.company = #{company}</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
          </where>
     </select>
      
     <select id="selectPowerinfoById" parameterType="Long" resultMap="PowerinfoResult">
         <include refid="selectPowerinfoVo"/> 
         where powerInfoId = #{powerInfoId}
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
     </select>
     
     <select id="selectPowerinfoListByIds" parameterType="String" resultMap="PowerinfoResult">
@@ -147,6 +164,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
             #{powerInfoId}
         </foreach>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
     </select>    
 
     <select id="selectPowerinfoListCommited" parameterType="Long" resultMap="PowerinfoResult">
@@ -154,6 +177,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		left join sys_dept on sys_powerinfo.company = sys_dept.dept_id			
         <where>  
              <if test="company != null "> and sys_powerinfo.company = #{company}</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
              and sys_powerinfo.del_flag = '2'
          </where>
     </select>
