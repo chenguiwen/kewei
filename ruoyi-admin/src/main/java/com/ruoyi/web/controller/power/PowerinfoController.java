@@ -149,6 +149,11 @@ public class PowerinfoController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Powerinfo powerinfo)
 	{		
+		Date creationDate = new Date();
+		powerinfo.setCreateTime(creationDate);
+		SysUser user = ShiroUtils.getSysUser();
+		powerinfo.setCreateBy(user.getUserName());
+		powerinfo.setCompany(user.getDeptId());
 		return toAjax(powerinfoService.insertPowerinfo(powerinfo));
 	}
 
@@ -172,6 +177,10 @@ public class PowerinfoController extends BaseController
 	@ResponseBody
 	public AjaxResult editSave(Powerinfo powerinfo)
 	{		
+		Date upateDate = new Date();
+		powerinfo.setUpdateTime(upateDate);
+		SysUser user = ShiroUtils.getSysUser();
+		powerinfo.setUpdateBy(user.getUserName());
 		return toAjax(powerinfoService.updatePowerinfo(powerinfo));
 	}
 	
