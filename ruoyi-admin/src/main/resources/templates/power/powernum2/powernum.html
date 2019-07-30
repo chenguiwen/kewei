@@ -6,7 +6,6 @@
 <body class="gray-bg">
      <div class="container-div">
 		<div class="row">
-		
 			<div class="col-sm-12 search-collapse">
 				<form id="formId">
 					<div class="select-list">
@@ -32,17 +31,12 @@
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
 			</div>
-			
-			<div class="col-sm-12 select-table table-striped">
-				<table id="bootstrap-table" data-mobile-responsive="true"></table>
-			</div>
-			
 		</div>
 	</div>
     <div th:include="include :: footer"></div>
-    
     <script th:inline="javascript">
         var prefix = ctx + "power/powernum";
+
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -126,126 +120,5 @@
             $.table.init(options);
         });
     </script>
-    
-
-
-    <script th:inline="javascript">
-        var prefix = ctx + "power/powerinfo";
-		
-        $(function() {
-            var options = {
-                url: prefix + "/list",
-				exportUrl: prefix + "/export",
-                modalName: "电厂",
-		        showExport: true,
-                columns: [{
-		            checkbox: true
-		        },
-				{
-					field : 'powerInfoId', 
-					title : '数据id',
-					visible: false
-				},
-				{
-					field : 'dept.deptName', 
-					title : '所属电厂',
-					sortable: true
-				},
-				{
-					field : 'powerCode01', 
-					title : 'A线有功反向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerCode02', 
-					title : 'A线有功正向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerCode03', 
-					title : 'B线有功反向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerCode04', 
-					title : 'B线有功正向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerCode05', 
-					title : 'C线有功反向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerCode06', 
-					title : 'C线有功正向(总)',
-					sortable: true
-				},
-				{
-					field : 'powerNum01', 
-					title : '#1机组',
-					sortable: true
-				},
-				{
-					field : 'powerNum02', 
-					title : '#2机组',
-					sortable: true
-				},
-				{
-					field : 'powerNum03', 
-					title : '#3机组',
-					sortable: true
-				},
-				{
-					field : 'powerNum04', 
-					title : '#4机组',
-					sortable: true
-				},
-				{
-					field : 'powerNum05', 
-					title : '#5机组',
-					sortable: true
-				},
-				{
-					field : 'powerNum06', 
-					title : '#6机组',
-					sortable: true
-				},
-				{
-					field : 'remark', 
-					title : '备注',
-					sortable: true
-				},
-				{
-					field : 'delFlag', 
-					title : '删除标记',
-					sortable: true
-				},
-				{
-					field : 'createBy', 
-					title : '创建人',
-					sortable: true
-				},
-				{
-					field : 'createTime', 
-					title : '创建时间',
-					sortable: true
-				},
-				{
-					field : 'updateBy', 
-					title : '修改人',
-					sortable: true
-				},
-				{
-					field : 'updateTime', 
-					title : '修改时间',
-					sortable: true
-				}]
-            };
-            $.table.init(options);
-        });
-        
-    </script>
-
 </body>
 </html>

@@ -34,6 +34,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
@@ -310,12 +311,21 @@ public class ExcelUtil<T>
         {
             // 取出一共有多少个sheet.
             double sheetNo = Math.ceil(list.size() / sheetSize);
+            
+            // 产生一行标题
+            Row titleRow = sheet.createRow(0);
+            CellRangeAddress cellRangeAddress =new CellRangeAddress(0, 1, 0, fields.size());
+            sheet.addMergedRegion(cellRangeAddress);
+            Cell mergeCell = titleRow.createCell(fields.size());
+            mergeCell.setCellValue("电厂数据");
+
             for (int index = 0; index <= sheetNo; index++)
             {
                 createSheet(sheetNo, index);
 
                 // 产生一行
                 Row row = sheet.createRow(0);
+                
                 int excelsNo = 0;
                 // 写入各个字段的列头名称
                 for (int column = 0; column < fields.size(); column++)
