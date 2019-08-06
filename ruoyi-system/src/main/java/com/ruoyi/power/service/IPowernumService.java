@@ -3,6 +3,8 @@ package com.ruoyi.power.service;
 import com.ruoyi.power.domain.Powernum;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * 电力公司 服务层
  * 
@@ -26,8 +28,8 @@ public interface IPowernumService
      * @return 电力公司集合
      */
 	public List<Powernum> selectPowernumList(Powernum powernum);
-	public List<Powernum> selectPowernumListCommited(Long company);
-	public List<Powernum> selectPowernumList(Long company);
+	public List<Powernum> selectPowernumListCommited(@Param(value="company") Long company);
+	public List<Powernum> selectPowernumList(@Param(value="company") Long company);
 	public List<Powernum> selectPowernumListByIds(String ids);
 	
 	/**

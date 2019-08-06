@@ -1,9 +1,7 @@
 package com.ruoyi.power.mapper;
 
 import com.ruoyi.power.domain.Powerinfo;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;	
+import java.util.List;	
 
 /**
  * 电厂 数据层
@@ -28,9 +26,9 @@ public interface PowerinfoMapper
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
-	public List<Powerinfo> selectPowerinfo(@Param(value="company")Long company);
+	public List<Powerinfo> selectPowerinfo(Long company);
 	public List<Powerinfo> selectPowerinfoListByIds(String[] ids);
-	public List<Powerinfo> selectPowerinfoListCommited(@Param(value="company")Long company);
+	public List<Powerinfo> selectPowerinfoListCommited(Long company);
 	/**
      * 新增电厂
      * 

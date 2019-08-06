@@ -1,6 +1,7 @@
 package com.ruoyi.power.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.power.mapper.PowerinfoMapper;
@@ -47,9 +48,12 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	}
 	
 	@Override
-	public List<Powerinfo> selectPowerinfoList(Long company)
+	public List<Powerinfo> selectPowerinfoList(Long deptId)
 	{
-	    return powerinfoMapper.selectPowerinfo(company);
+		if(deptId != null) {
+			return powerinfoMapper.selectPowerinfo(deptId);
+	    }
+		return powerinfoMapper.selectPowerinfoList(new Powerinfo());
 	}
 
 	@Override
@@ -58,8 +62,8 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	}
 
 	@Override
-	public List<Powerinfo> selectPowerinfoListCommited(Long company) {
-		return powerinfoMapper.selectPowerinfoListCommited(company);
+	public List<Powerinfo> selectPowerinfoListCommited(Long deptId) {
+		return powerinfoMapper.selectPowerinfoListCommited(deptId);
 	}
     /**
      * 新增电厂

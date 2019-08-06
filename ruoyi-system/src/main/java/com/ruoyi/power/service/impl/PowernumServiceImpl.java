@@ -48,8 +48,8 @@ public class PowernumServiceImpl implements IPowernumService
 
 	@Override
     @DataScope(tableAlias = "sys_powernum")
-	public List<Powernum> selectPowernumListCommited(Long company) {
-		return powernumMapper.selectPowernumListCommited(company);
+	public List<Powernum> selectPowernumListCommited(Long deptId) {
+		return powernumMapper.selectPowernumListCommited(deptId);
 	}
 
 	@Override

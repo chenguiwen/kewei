@@ -73,7 +73,7 @@ public interface SysDeptMapper
      * @param deptId 部门ID
      * @return 部门信息
      */
-    public SysDept selectDeptById(Long deptId);
+    public SysDept selectDeptById(@Param("deptId") Long deptId);
 
     /**
      * 校验部门名称是否唯一

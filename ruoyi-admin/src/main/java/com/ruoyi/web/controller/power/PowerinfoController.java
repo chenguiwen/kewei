@@ -103,9 +103,10 @@ public class PowerinfoController extends BaseController
 		}
 		List<Powerinfo> list = new ArrayList<Powerinfo>();
 		if(role == 0) {//结算员
-			Long company = user.getDeptId();
-			SysDept dept = deptService.selectDeptById(company);
-        	list = powerinfoService.selectPowerinfoList(dept.getParentId());
+			Long deptId = user.getDeptId();
+			SysDept dept = deptService.selectDeptById(deptId);
+			long company = dept.getParentId();
+        	list = powerinfoService.selectPowerinfoList(company);
 		}
 		else if(role == 1) {//核算员
 			Long company = user.getDeptId();
