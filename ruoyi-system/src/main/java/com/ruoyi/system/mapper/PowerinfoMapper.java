@@ -1,13 +1,13 @@
-package com.ruoyi.power.mapper;
+package com.ruoyi.system.mapper;
 
-import com.ruoyi.power.domain.Powerinfo;
+import com.ruoyi.system.domain.Powerinfo;
 import java.util.List;	
 
 /**
  * 电厂 数据层
  * 
  * @author ruoyi
- * @date 2019-07-08
+ * @date 2019-08-28
  */
 public interface PowerinfoMapper 
 {
@@ -26,9 +26,7 @@ public interface PowerinfoMapper
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
-	public List<Powerinfo> selectPowerinfo(Long company);
-	public List<Powerinfo> selectPowerinfoListByIds(String[] ids);
-	public List<Powerinfo> selectPowerinfoListCommited(Long company);
+	
 	/**
      * 新增电厂
      * 
@@ -61,13 +59,4 @@ public interface PowerinfoMapper
      */
 	public int deletePowerinfoByIds(String[] powerInfoIds);
 	
-	/**
-	 * 提交
-	 * */
-	public int commitPowerinfoById(Long powerInfoId);
-	
-	/**
-	 * 批量提交
-	 * */
-	public int commitPowerinfoList(List<Powerinfo> powerinfos);	
 }

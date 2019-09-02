@@ -1,13 +1,13 @@
-package com.ruoyi.power.service;
+package com.ruoyi.system.service;
 
-import com.ruoyi.power.domain.Powerinfo;
+import com.ruoyi.system.domain.Powerinfo;
 import java.util.List;
 
 /**
  * 电厂 服务层
  * 
  * @author ruoyi
- * @date 2019-07-08
+ * @date 2019-08-28
  */
 public interface IPowerinfoService 
 {
@@ -26,9 +26,6 @@ public interface IPowerinfoService
      * @return 电厂集合
      */
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo);
-	public List<Powerinfo> selectPowerinfoList(Long company);
-	public List<Powerinfo> selectPowerinfoListByIds(String ids);
-	public List<Powerinfo> selectPowerinfoListCommited(Long company);
 	
 	/**
      * 新增电厂
@@ -54,8 +51,4 @@ public interface IPowerinfoService
      */
 	public int deletePowerinfoByIds(String ids);
 	
-	/**
-	 * 批量提交
-	 * */
-	public int commitPowerinfoList(List<Powerinfo> powerinfos);
 }

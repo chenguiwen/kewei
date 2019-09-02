@@ -1,15 +1,15 @@
-package com.ruoyi.power.mapper;
+package com.ruoyi.system.service;
 
-import com.ruoyi.power.domain.Powernum;
-import java.util.List;	
+import com.ruoyi.system.domain.Powernum;
+import java.util.List;
 
 /**
- * 电力公司 数据层
+ * 电力公司 服务层
  * 
  * @author ruoyi
- * @date 2019-07-20
+ * @date 2019-08-28
  */
-public interface PowernumMapper 
+public interface IPowernumService 
 {
 	/**
      * 查询电力公司信息
@@ -18,6 +18,7 @@ public interface PowernumMapper
      * @return 电力公司信息
      */
 	public Powernum selectPowernumById(Long powerInfoId);
+	public Powernum selectPowernumById(String ids);
 	
 	/**
      * 查询电力公司列表
@@ -26,9 +27,6 @@ public interface PowernumMapper
      * @return 电力公司集合
      */
 	public List<Powernum> selectPowernumList(Powernum powernum);
-	public List<Powernum> selectPowernumListCommited(Long company);
-	public List<Powernum> selectPowernum(Long company);
-	public List<Powernum> selectPowernumListByIds(String ids);
 	
 	/**
      * 新增电力公司
@@ -45,21 +43,13 @@ public interface PowernumMapper
      * @return 结果
      */
 	public int updatePowernum(Powernum powernum);
-	
+		
 	/**
-     * 删除电力公司
+     * 删除电力公司信息
      * 
-     * @param powerInfoId 电力公司ID
+     * @param ids 需要删除的数据ID
      * @return 结果
      */
-	public int deletePowernumById(Long powerInfoId);
-	
-	/**
-     * 批量删除电力公司
-     * 
-     * @param powerInfoIds 需要删除的数据ID
-     * @return 结果
-     */
-	public int deletePowernumByIds(String[] powerInfoIds);
+	public int deletePowernumByIds(String ids);
 	
 }

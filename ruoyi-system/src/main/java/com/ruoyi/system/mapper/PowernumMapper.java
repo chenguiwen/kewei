@@ -1,17 +1,15 @@
-package com.ruoyi.power.service;
+package com.ruoyi.system.mapper;
 
-import com.ruoyi.power.domain.Powernum;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import com.ruoyi.system.domain.Powernum;
+import java.util.List;	
 
 /**
- * 电力公司 服务层
+ * 电力公司 数据层
  * 
  * @author ruoyi
- * @date 2019-07-20
+ * @date 2019-08-28
  */
-public interface IPowernumService 
+public interface PowernumMapper 
 {
 	/**
      * 查询电力公司信息
@@ -20,6 +18,7 @@ public interface IPowernumService
      * @return 电力公司信息
      */
 	public Powernum selectPowernumById(Long powerInfoId);
+	public Powernum selectPowernumByIds(String[] powerInfoIds);
 	
 	/**
      * 查询电力公司列表
@@ -28,9 +27,6 @@ public interface IPowernumService
      * @return 电力公司集合
      */
 	public List<Powernum> selectPowernumList(Powernum powernum);
-	public List<Powernum> selectPowernumListCommited(@Param(value="company") Long company);
-	public List<Powernum> selectPowernumList(@Param(value="company") Long company);
-	public List<Powernum> selectPowernumListByIds(String ids);
 	
 	/**
      * 新增电力公司
@@ -47,13 +43,21 @@ public interface IPowernumService
      * @return 结果
      */
 	public int updatePowernum(Powernum powernum);
-		
+	
 	/**
-     * 删除电力公司信息
+     * 删除电力公司
      * 
-     * @param ids 需要删除的数据ID
+     * @param powerInfoId 电力公司ID
      * @return 结果
      */
-	public int deletePowernumByIds(String ids);
+	public int deletePowernumById(Long powerInfoId);
+	
+	/**
+     * 批量删除电力公司
+     * 
+     * @param powerInfoIds 需要删除的数据ID
+     * @return 结果
+     */
+	public int deletePowernumByIds(String[] powerInfoIds);
 	
 }

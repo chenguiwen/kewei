@@ -1,23 +1,16 @@
-package com.ruoyi.power.domain;
+package com.ruoyi.system.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ruoyi.common.annotation.Excel;
-import com.ruoyi.common.annotation.Excels;
-import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.core.domain.BaseEntity;
-import com.ruoyi.system.domain.SysDept;
-
-import java.math.BigDecimal;
 import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  * 电力公司表 sys_powernum
  * 
  * @author ruoyi
- * @date 2019-07-20
+ * @date 2019-08-28
  */
 public class Powernum extends BaseEntity
 {
@@ -25,32 +18,24 @@ public class Powernum extends BaseEntity
 	
 	/** 电厂id */
 	private Long powerInfoId;
-	/** 电量 */
+	/** 1.2#主变高压侧电量之和 */
 	private BigDecimal powerNum01;
-	/** 电量 */
+	/** 1#机原始上网电量 */
 	private BigDecimal powerNum02;
-	/** 电量 */
+	/** 2#机原始上网电量 */
 	private BigDecimal powerNum03;
-	/** 电量 */
+	/** 供电侧电量 */
 	private BigDecimal powerNum04;
-	/** 电量 */
+	/** 1#机结算上网电量 */
 	private BigDecimal powerNum05;
-	/** 电量 */
+	/** 2#机结算上网电量 */
 	private BigDecimal powerNum06;
 	/** 提交标志（0代表保存态 2代表提交态） */
-	private String comFlag;
-	/** 单据日期 */
-	private Long company;
-	/** 单据日期 */
-    @JsonFormat(pattern = "yyyy-MM")
+	private String status;
+	/** 部门 */
+	private Long department;
+	/** 表单时间 */
 	private Date billDate;
-    /** 部门对象 */
-    @Excels({
-        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
-        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
-    })
-    private SysDept dept;
-
 
 	public void setPowerInfoId(Long powerInfoId) 
 	{
@@ -115,48 +100,35 @@ public class Powernum extends BaseEntity
 	{
 		return powerNum06;
 	}
-	public void setComFlag(String comFlag) 
+	public void setStatus(String status) 
 	{
-		this.comFlag = comFlag;
+		this.status = status;
 	}
 
-	public String getComFlag() 
+	public String getStatus() 
 	{
-		return comFlag;
+		return status;
 	}
-	public void setCompany(Long company) 
+	public void setDepartment(Long department) 
 	{
-		this.company = company;
+		this.department = department;
 	}
 
-	public Long getCompany() 
+	public Long getDepartment() 
 	{
-		return company;
+		return department;
 	}
-
-    public Date getBillDate() {
-		return billDate;
-	}
-
-	public void setBillDate(Date billDate) {
+	public void setBillDate(Date billDate) 
+	{
 		this.billDate = billDate;
 	}
 
-    public SysDept getDept()
-    {
-        if (dept == null)
-        {
-            dept = new SysDept();
-        }
-        return dept;
-    }
+	public Date getBillDate() 
+	{
+		return billDate;
+	}
 
-    public void setDept(SysDept dept)
-    {
-        this.dept = dept;
-    }
-
-	public String toString() {
+    public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("powerInfoId", getPowerInfoId())
             .append("powerNum01", getPowerNum01())
@@ -166,12 +138,13 @@ public class Powernum extends BaseEntity
             .append("powerNum05", getPowerNum05())
             .append("powerNum06", getPowerNum06())
             .append("remark", getRemark())
-            .append("comFlag", getComFlag())
+            .append("status", getStatus())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-            .append("company", getCompany())
+            .append("department", getDepartment())
+            .append("billDate", getBillDate())
             .toString();
     }
 }

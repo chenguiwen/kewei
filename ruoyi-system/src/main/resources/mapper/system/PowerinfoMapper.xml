@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PowerinfoMapper">
+    
+    <resultMap type="Powerinfo" id="PowerinfoResult">
+        <result property="powerInfoId"    column="powerInfoId"    />
+        <result property="powerCode01"    column="powerCode01"    />
+        <result property="powerCode02"    column="powerCode02"    />
+        <result property="powerCode03"    column="powerCode03"    />
+        <result property="powerCode04"    column="powerCode04"    />
+        <result property="powerCode05"    column="powerCode05"    />
+        <result property="powerCode06"    column="powerCode06"    />
+        <result property="powerNum01"    column="powerNum01"    />
+        <result property="powerNum02"    column="powerNum02"    />
+        <result property="powerNum03"    column="powerNum03"    />
+        <result property="powerNum04"    column="powerNum04"    />
+        <result property="powerNum05"    column="powerNum05"    />
+        <result property="powerNum06"    column="powerNum06"    />
+        <result property="remark"    column="remark"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="department"    column="department"    />
+        <result property="billDate"    column="bill_date"    />
+    </resultMap>
+	
+	<sql id="selectPowerinfoVo">
+        select powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, remark, status, create_by, create_time, update_by, update_time, department, bill_date from sys_powerinfo
+    </sql>
+	
+    <select id="selectPowerinfoList" parameterType="Powerinfo" resultMap="PowerinfoResult">
+        <include refid="selectPowerinfoVo"/>
+        <where>  
+            <if test="powerInfoId != null "> and powerInfoId = #{powerInfoId}</if>
+             <if test="powerCode01 != null "> and powerCode01 = #{powerCode01}</if>
+             <if test="powerCode02 != null "> and powerCode02 = #{powerCode02}</if>
+             <if test="powerCode03 != null "> and powerCode03 = #{powerCode03}</if>
+             <if test="powerCode04 != null "> and powerCode04 = #{powerCode04}</if>
+             <if test="powerCode05 != null "> and powerCode05 = #{powerCode05}</if>
+             <if test="powerCode06 != null "> and powerCode06 = #{powerCode06}</if>
+             <if test="powerNum01 != null "> and powerNum01 = #{powerNum01}</if>
+             <if test="powerNum02 != null "> and powerNum02 = #{powerNum02}</if>
+             <if test="powerNum03 != null "> and powerNum03 = #{powerNum03}</if>
+             <if test="powerNum04 != null "> and powerNum04 = #{powerNum04}</if>
+             <if test="powerNum05 != null "> and powerNum05 = #{powerNum05}</if>
+             <if test="powerNum06 != null "> and powerNum06 = #{powerNum06}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="status != null  and status != '' "> and status = #{status}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+             <if test="department != null "> and department = #{department}</if>
+             <if test="billDate != null "> and bill_date = #{billDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectPowerinfoById" parameterType="Long" resultMap="PowerinfoResult">
+        <include refid="selectPowerinfoVo"/>
+        where powerInfoId = #{powerInfoId}
+    </select>
+        
+    <insert id="insertPowerinfo" parameterType="Powerinfo" useGeneratedKeys="true" keyProperty="powerInfoId">
+        insert into sys_powerinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="powerCode01 != null  ">powerCode01,</if>
+			<if test="powerCode02 != null  ">powerCode02,</if>
+			<if test="powerCode03 != null  ">powerCode03,</if>
+			<if test="powerCode04 != null  ">powerCode04,</if>
+			<if test="powerCode05 != null  ">powerCode05,</if>
+			<if test="powerCode06 != null  ">powerCode06,</if>
+			<if test="powerNum01 != null  ">powerNum01,</if>
+			<if test="powerNum02 != null  ">powerNum02,</if>
+			<if test="powerNum03 != null  ">powerNum03,</if>
+			<if test="powerNum04 != null  ">powerNum04,</if>
+			<if test="powerNum05 != null  ">powerNum05,</if>
+			<if test="powerNum06 != null  ">powerNum06,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="status != null  and status != ''  ">status,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			<if test="updateTime != null  ">update_time,</if>
+			<if test="department != null  ">department,</if>
+			<if test="billDate != null  ">bill_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="powerCode01 != null  ">#{powerCode01},</if>
+			<if test="powerCode02 != null  ">#{powerCode02},</if>
+			<if test="powerCode03 != null  ">#{powerCode03},</if>
+			<if test="powerCode04 != null  ">#{powerCode04},</if>
+			<if test="powerCode05 != null  ">#{powerCode05},</if>
+			<if test="powerCode06 != null  ">#{powerCode06},</if>
+			<if test="powerNum01 != null  ">#{powerNum01},</if>
+			<if test="powerNum02 != null  ">#{powerNum02},</if>
+			<if test="powerNum03 != null  ">#{powerNum03},</if>
+			<if test="powerNum04 != null  ">#{powerNum04},</if>
+			<if test="powerNum05 != null  ">#{powerNum05},</if>
+			<if test="powerNum06 != null  ">#{powerNum06},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="status != null  and status != ''  ">#{status},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="department != null  ">#{department},</if>
+			<if test="billDate != null  ">#{billDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updatePowerinfo" parameterType="Powerinfo">
+        update sys_powerinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="powerCode01 != null  ">powerCode01 = #{powerCode01},</if>
+            <if test="powerCode02 != null  ">powerCode02 = #{powerCode02},</if>
+            <if test="powerCode03 != null  ">powerCode03 = #{powerCode03},</if>
+            <if test="powerCode04 != null  ">powerCode04 = #{powerCode04},</if>
+            <if test="powerCode05 != null  ">powerCode05 = #{powerCode05},</if>
+            <if test="powerCode06 != null  ">powerCode06 = #{powerCode06},</if>
+            <if test="powerNum01 != null  ">powerNum01 = #{powerNum01},</if>
+            <if test="powerNum02 != null  ">powerNum02 = #{powerNum02},</if>
+            <if test="powerNum03 != null  ">powerNum03 = #{powerNum03},</if>
+            <if test="powerNum04 != null  ">powerNum04 = #{powerNum04},</if>
+            <if test="powerNum05 != null  ">powerNum05 = #{powerNum05},</if>
+            <if test="powerNum06 != null  ">powerNum06 = #{powerNum06},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="department != null  ">department = #{department},</if>
+            <if test="billDate != null  ">bill_date = #{billDate},</if>
+        </trim>
+        where powerInfoId = #{powerInfoId}
+    </update>
+
+	<delete id="deletePowerinfoById" parameterType="Long">
+        delete from sys_powerinfo where powerInfoId = #{powerInfoId}
+    </delete>
+	
+    <delete id="deletePowerinfoByIds" parameterType="String">
+        delete from sys_powerinfo where powerInfoId in 
+        <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
+            #{powerInfoId}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,19 +1,18 @@
-package com.ruoyi.power.service.impl;
+package com.ruoyi.system.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.power.mapper.PowernumMapper;
-import com.ruoyi.power.domain.Powernum;
-import com.ruoyi.power.service.IPowernumService;
-import com.ruoyi.common.annotation.DataScope;
+import com.ruoyi.system.mapper.PowernumMapper;
+import com.ruoyi.system.domain.Powernum;
+import com.ruoyi.system.service.IPowernumService;
 import com.ruoyi.common.core.text.Convert;
 
 /**
  * 电力公司 服务层实现
  * 
  * @author ruoyi
- * @date 2019-07-20
+ * @date 2019-08-28
  */
 @Service
 public class PowernumServiceImpl implements IPowernumService 
@@ -32,6 +31,9 @@ public class PowernumServiceImpl implements IPowernumService
 	{
 	    return powernumMapper.selectPowernumById(powerInfoId);
 	}
+	public Powernum selectPowernumById(String ids) {
+	    return powernumMapper.selectPowernumByIds(Convert.toStrArray(ids));		
+	}
 	
 	/**
      * 查询电力公司列表
@@ -40,30 +42,11 @@ public class PowernumServiceImpl implements IPowernumService
      * @return 电力公司集合
      */
 	@Override
-    @DataScope(tableAlias = "sys_powernum")
 	public List<Powernum> selectPowernumList(Powernum powernum)
 	{
 	    return powernumMapper.selectPowernumList(powernum);
 	}
-
-	@Override
-    @DataScope(tableAlias = "sys_powernum")
-	public List<Powernum> selectPowernumListCommited(Long deptId) {
-		return powernumMapper.selectPowernumListCommited(deptId);
-	}
-
-	@Override
-    @DataScope(tableAlias = "sys_powernum")
-	public List<Powernum> selectPowernumList(Long company) {
-		return powernumMapper.selectPowernum(company);
-	}
-
-	@Override
-    @DataScope(tableAlias = "sys_powernum")
-	public List<Powernum> selectPowernumListByIds(String ids) {
-		return powernumMapper.selectPowernumListByIds(ids);
-	}	
-
+	
     /**
      * 新增电力公司
      * 

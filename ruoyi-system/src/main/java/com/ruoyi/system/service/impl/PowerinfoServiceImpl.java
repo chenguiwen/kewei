@@ -1,20 +1,18 @@
-package com.ruoyi.power.service.impl;
+package com.ruoyi.system.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.power.mapper.PowerinfoMapper;
-import com.ruoyi.power.domain.Powerinfo;
-import com.ruoyi.power.service.IPowerinfoService;
-import com.ruoyi.common.annotation.DataScope;
+import com.ruoyi.system.mapper.PowerinfoMapper;
+import com.ruoyi.system.domain.Powerinfo;
+import com.ruoyi.system.service.IPowerinfoService;
 import com.ruoyi.common.core.text.Convert;
 
 /**
  * 电厂 服务层实现
  * 
  * @author ruoyi
- * @date 2019-07-08
+ * @date 2019-08-28
  */
 @Service
 public class PowerinfoServiceImpl implements IPowerinfoService 
@@ -41,30 +39,11 @@ public class PowerinfoServiceImpl implements IPowerinfoService
      * @return 电厂集合
      */
 	@Override
-    @DataScope(tableAlias = "sys_powerinfo")
 	public List<Powerinfo> selectPowerinfoList(Powerinfo powerinfo)
 	{
 	    return powerinfoMapper.selectPowerinfoList(powerinfo);
 	}
 	
-	@Override
-	public List<Powerinfo> selectPowerinfoList(Long deptId)
-	{
-		if(deptId != null) {
-			return powerinfoMapper.selectPowerinfo(deptId);
-	    }
-		return powerinfoMapper.selectPowerinfoList(new Powerinfo());
-	}
-
-	@Override
-	public List<Powerinfo> selectPowerinfoListByIds(String ids) {
-		return powerinfoMapper.selectPowerinfoListByIds(Convert.toStrArray(ids));
-	}
-
-	@Override
-	public List<Powerinfo> selectPowerinfoListCommited(Long deptId) {
-		return powerinfoMapper.selectPowerinfoListCommited(deptId);
-	}
     /**
      * 新增电厂
      * 
@@ -99,11 +78,6 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	public int deletePowerinfoByIds(String ids)
 	{
 		return powerinfoMapper.deletePowerinfoByIds(Convert.toStrArray(ids));
-	}
-
-	@Override
-	public int commitPowerinfoList(List<Powerinfo> powerinfos) {
-		return powerinfoMapper.commitPowerinfoList(powerinfos);
 	}
 	
 }
