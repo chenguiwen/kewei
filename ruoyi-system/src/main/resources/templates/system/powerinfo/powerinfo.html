@@ -130,6 +130,15 @@
 					sortable: true
 				},
 				{
+					field : 'status', 
+					title : '提交',
+		        	align: 'center',
+					sortable: true,
+		        	formatter: function (value, row, index) {
+		        		return statusTools(row);
+		        	}
+				},
+				{
 					field : 'powerCode01', 
 					title : 'A线有功反向(总)',
 					sortable: true
@@ -195,11 +204,6 @@
 					sortable: true
 				},
 				{
-					field : 'delFlag', 
-					title : '删除标记',
-					sortable: true
-				},
-				{
 					field : 'createBy', 
 					title : '创建人',
 					sortable: true
@@ -233,6 +237,22 @@
             $.table.init(options);
         });
         
+		/* 状态显示 */
+		function statusTools(row) {
+		    if (row.status == 1) {
+    			return '<i class=\"fa fa-toggle-on text-info fa-2x\" ></i> ';
+    		} else {
+    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" ></i> ';
+//    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="disable(\'' + row.powerInfoId + '\')"></i> ';
+    		}
+		}
+		/* 用户管理-停用 */
+		function disable(powerInfoId) {
+			$.modal.confirm("确认要提交吗？", function() {
+				$.operate.post(prefix + "/commit", { "powerInfoId": powerInfoId, "status": 1 });
+		    })
+		}
+
     </script>
 </body>
 </html>

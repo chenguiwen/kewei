@@ -26,14 +26,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="department"    column="department"    />
         <result property="billDate"    column="bill_date"    />
+		<association property="dept" column="department"	javaType="SysDept" resultMap="deptResult" />
     </resultMap>
+	<resultMap id="deptResult" type="SysDept">
+		<id property="deptId" column="dept_id" />
+		<result property="parentId" column="parent_id" />
+		<result property="deptName" column="dept_name" />
+		<result property="orderNum" column="order_num" />
+		<result property="leader" column="leader" />
+		<result property="status" column="dept_status" />
+	</resultMap>
 	
 	<sql id="selectPowerinfoVo">
-        select powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, remark, status, create_by, create_time, update_by, update_time, department, bill_date from sys_powerinfo
+        select 
+        	powerInfoId, powerCode01, powerCode02, powerCode03, powerCode04, powerCode05, powerCode06, 
+        	powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, 
+        	remark, status, create_by, create_time, update_by, update_time, department, bill_date 
+        from sys_powerinfo
     </sql>
 	
     <select id="selectPowerinfoList" parameterType="Powerinfo" resultMap="PowerinfoResult">
-        <include refid="selectPowerinfoVo"/>
+        select 
+        	sys_powerinfo.powerInfoId, sys_powerinfo.powerCode01, sys_powerinfo.powerCode02, 
+        	sys_powerinfo.powerCode03, sys_powerinfo.powerCode04, sys_powerinfo.powerCode05, 
+        	sys_powerinfo.powerCode06, sys_powerinfo.powerNum01, sys_powerinfo.powerNum02, 
+        	sys_powerinfo.powerNum03, sys_powerinfo.powerNum04, sys_powerinfo.powerNum05, 
+        	sys_powerinfo.powerNum06, sys_powerinfo.remark, sys_powerinfo.status, sys_powerinfo.create_by, 
+        	sys_powerinfo.create_time, sys_powerinfo.update_by, sys_powerinfo.update_time,
+        	sys_powerinfo.department, sys_powerinfo.bill_date, sys_dept.dept_name, sys_dept.leader 
+        from sys_powerinfo left join sys_dept on sys_powerinfo.department = sys_dept.dept_id			
         <where>  
             <if test="powerInfoId != null "> and powerInfoId = #{powerInfoId}</if>
              <if test="powerCode01 != null "> and powerCode01 = #{powerCode01}</if>
@@ -51,18 +72,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
              <if test="status != null  and status != '' "> and status = #{status}</if>
              <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
-             <if test="createTime != null "> and create_time = #{createTime}</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			AND date_format(sys_powerinfo.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
              <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
              <if test="updateTime != null "> and update_time = #{updateTime}</if>
              <if test="department != null "> and department = #{department}</if>
              <if test="billDate != null "> and bill_date = #{billDate}</if>
          </where>
-    </select>
+    </select>    
     
     <select id="selectPowerinfoById" parameterType="Long" resultMap="PowerinfoResult">
         <include refid="selectPowerinfoVo"/>
         where powerInfoId = #{powerInfoId}
     </select>
+    <select id="selectPowerinfoByIds" parameterType="String" resultMap="PowerinfoResult">
+        <include refid="selectPowerinfoVo"/>
+	    where powerInfoId in 
+        <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
+            #{powerInfoId}
+        </foreach>
+    </select>
+    
         
     <insert id="insertPowerinfo" parameterType="Powerinfo" useGeneratedKeys="true" keyProperty="powerInfoId">
         insert into sys_powerinfo

@@ -798,16 +798,17 @@
         		});
             },
             // 批量删除信息
-            commit: function(id) {
-            	$.modal.confirm("确定提交该条" + $.table._option.modalName + "信息吗？", function() {
-                    var url = $.common.isEmpty(id) ? $.table._option.commitUrl : $.table._option.commitUrl.replace("{id}", id);
-                    if($.table._option.type == table_type.bootstrapTreeTable) {
-                    	$.operate.get(url);
-                    } else {
-	            	    var data = { "ids": id };
-	            	    $.operate.submit(url, "post", "json", data);
-	                }
-            	});
+            commit: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要提交选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.commitUrl;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
             },
             // 清空信息
             clean: function() {

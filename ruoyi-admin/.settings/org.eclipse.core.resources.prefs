@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/resources/templates/power/powerinfo/powerinfo.html=UTF-8
-encoding//src/main/resources/templates/power/powerinfo2/powerinfo.html=UTF-8
+encoding//src/main/resources/templates/deletepower/powerinfo/powerinfo.html=UTF-8
+encoding//src/main/resources/templates/deletepower/powerinfo2/powerinfo.html=UTF-8
 encoding/<project>=UTF-8

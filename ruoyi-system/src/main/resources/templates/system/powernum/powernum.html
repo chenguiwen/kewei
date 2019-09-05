@@ -106,6 +106,15 @@
 					title : '所属电厂',
 					sortable: true
 				},
+//				{
+//					field : 'status', 
+//					title : '提交',
+//		        	align: 'center',
+//					sortable: true,
+//		        	formatter: function (value, row, index) {
+//		        		return statusTools(row);
+//		        	}
+//				},
 				{
 					field : 'powerNum01', 
 					title : '1.2#主变高压侧电量之和',
@@ -142,11 +151,6 @@
 					sortable: true
 				},
 				{
-					field : 'status', 
-					title : '状态标记',
-					sortable: true
-				},
-				{
 					field : 'createBy', 
 					title : '创建人',
 					sortable: true
@@ -179,6 +183,16 @@
             };
             $.table.init(options);
         });
+        
+		/* 状态显示 */
+		function statusTools(row) {
+		    if (row.status == 1) {
+    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" ></i> ';
+    		} else {
+    			return '<i class=\"fa fa-toggle-on text-info fa-2x\" ></i> ';
+    		}
+		}
+        
     </script>
 </body>
 </html>

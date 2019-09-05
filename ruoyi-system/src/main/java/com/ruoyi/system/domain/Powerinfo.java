@@ -2,6 +2,10 @@ package com.ruoyi.system.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.annotation.Excels;
+import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.core.domain.BaseEntity;
 import java.util.Date;
 import java.math.BigDecimal;
@@ -48,6 +52,12 @@ public class Powerinfo extends BaseEntity
 	private Long department;
 	/** 表单时间 */
 	private Date billDate;
+    /** 部门对象 */
+    @Excels({
+        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+    })
+    private SysDept dept;
 
 	public void setPowerInfoId(Long powerInfoId) 
 	{
@@ -192,6 +202,17 @@ public class Powerinfo extends BaseEntity
 	public Date getBillDate() 
 	{
 		return billDate;
+	}
+
+    public SysDept getDept() {
+    	if(dept == null) {
+    		dept = new SysDept();
+    	}
+		return dept;
+	}
+
+	public void setDept(SysDept dept) {
+		this.dept = dept;
 	}
 
     public String toString() {

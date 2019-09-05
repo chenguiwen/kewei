@@ -127,15 +127,18 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 提交电厂表单
 	 * */
-	@RequiresPermissions("system:powerinfo:remove")
+	@RequiresPermissions("system:powerinfo:commit")
 	@Log(title = "电厂", businessType = BusinessType.DELETE)
 	@PostMapping( "/commit")
 	@ResponseBody
-	public AjaxResult commitBill(Long powerInfoId)
+	public AjaxResult commitBill(String ids)
 	{		
-		Powerinfo powerinfo = powerinfoService.selectPowerinfoById(powerInfoId);
-		powerinfo.setStatus("1");
-		return toAjax(powerinfoService.updatePowerinfo(powerinfo));
+		List<Powerinfo> powerinfos = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < powerinfos.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) powerinfos.get(i);
+			powerinfo.setStatus("1");
+		}
+		return toAjax(powerinfoService.updatePowerinfos(powerinfos));
 	}
 	
 }

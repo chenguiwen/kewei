@@ -18,7 +18,7 @@ public interface IPowerinfoService
      * @return 电厂信息
      */
 	public Powerinfo selectPowerinfoById(Long powerInfoId);
-	
+	public List<Powerinfo> selectPowerinfoByIds(String powerInfoIds);
 	/**
      * 查询电厂列表
      * 
@@ -42,6 +42,7 @@ public interface IPowerinfoService
      * @return 结果
      */
 	public int updatePowerinfo(Powerinfo powerinfo);
+	public int updatePowerinfos(List<Powerinfo> powerinfo);
 		
 	/**
      * 删除电厂信息

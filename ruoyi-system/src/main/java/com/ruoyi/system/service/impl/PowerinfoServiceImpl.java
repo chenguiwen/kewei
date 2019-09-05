@@ -31,7 +31,9 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	{
 	    return powerinfoMapper.selectPowerinfoById(powerInfoId);
 	}
-	
+    public List<Powerinfo> selectPowerinfoByIds(String powerInfoIds){
+    	return powerinfoMapper.selectPowerinfoByIds(Convert.toStrArray(powerInfoIds));
+    }
 	/**
      * 查询电厂列表
      * 
@@ -67,7 +69,20 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	{
 	    return powerinfoMapper.updatePowerinfo(powerinfo);
 	}
-
+	public int updatePowerinfos(List<Powerinfo> powerinfos) {
+		if(1 >= powerinfos.size()) {
+			return powerinfoMapper.updatePowerinfo(powerinfos.get(0));
+		}
+		else {
+			for (int i = 0; i < powerinfos.size(); i++) {
+				powerinfoMapper.updatePowerinfo(powerinfos.get(i));
+				if(i == powerinfos.size()-1) {
+					return powerinfoMapper.updatePowerinfo(powerinfos.get(i));
+				}
+			}
+			return powerinfoMapper.updatePowerinfo(powerinfos.get(powerinfos.size()-1));
+		}
+	}
 	/**
      * 删除电厂对象
      * 
