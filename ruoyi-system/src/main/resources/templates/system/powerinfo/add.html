@@ -7,11 +7,12 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-powerinfo-add">
+            <input name="department" type="hidden" id="treeId"/>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label ">部门：</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                    	<input name="companyName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control" required>
+                    	<input name="departmentName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control" required>
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>

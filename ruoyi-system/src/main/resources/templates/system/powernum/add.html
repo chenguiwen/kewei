@@ -7,12 +7,12 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-powerinfo-add">
-            <input name="company" type="hidden" id="treeId"/>
+            <input name="department" type="hidden" id="treeId"/>
 			<div class="form-group">
 				<label class="col-sm-3 control-label ">部门：</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                    	<input name="companyName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control" required>
+                    	<input name="departmentName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control" required>
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
@@ -100,16 +100,6 @@
 			$.modal.openOptions(options);
 		}
 		
-		
-//		function doSubmit(index, layero){
-//			var tree = layero.find("iframe")[0].contentWindow.$._tree;
-//			if ($.tree.notAllowParents(tree)) {
-//				var body = layer.getChildFrame('body', index);
-//    			$("#treeId").val(body.find('#treeId').val());
-//    			$("#treeName").val(body.find('#treeName').val());
-//    			layer.close(index);
-//			}
-//		}
 		function doSubmit(index, layero){
 			var body = layer.getChildFrame('body', index);
    			$("#treeId").val(body.find('#treeId').val());

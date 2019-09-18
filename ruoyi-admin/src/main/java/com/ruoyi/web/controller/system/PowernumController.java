@@ -19,6 +19,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 
 /**
  * 电力公司 信息操作处理
@@ -87,6 +88,10 @@ public class PowernumController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Powernum powernum)
 	{		
+		powernum.setBillDate(new Date());
+		powernum.setCreateBy(ShiroUtils.getSysUser().getUserName());
+		powernum.setCreateTime(new Date());
+		powernum.setStatus("0");
 		return toAjax(powernumService.insertPowernum(powernum));
 	}
 
@@ -110,6 +115,8 @@ public class PowernumController extends BaseController
 	@ResponseBody
 	public AjaxResult editSave(Powernum powernum)
 	{		
+		powernum.setUpdateBy(ShiroUtils.getSysUser().getUserName());
+		powernum.setUpdateTime(new Date());
 		return toAjax(powernumService.updatePowernum(powernum));
 	}
 	

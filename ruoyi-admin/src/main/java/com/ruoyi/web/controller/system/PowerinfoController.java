@@ -1,8 +1,11 @@
 package com.ruoyi.web.controller.system;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.joda.LocalDateParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 
 /**
  * 电厂 信息操作处理
@@ -86,6 +90,10 @@ public class PowerinfoController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Powerinfo powerinfo)
 	{		
+		powerinfo.setBillDate(new Date());
+		powerinfo.setCreateBy(ShiroUtils.getSysUser().getUserName());
+		powerinfo.setCreateTime(new Date());
+		powerinfo.setStatus("0");
 		return toAjax(powerinfoService.insertPowerinfo(powerinfo));
 	}
 
@@ -109,6 +117,8 @@ public class PowerinfoController extends BaseController
 	@ResponseBody
 	public AjaxResult editSave(Powerinfo powerinfo)
 	{		
+		powerinfo.setUpdateBy(ShiroUtils.getSysUser().getUserName());
+		powerinfo.setUpdateTime(new Date());
 		return toAjax(powerinfoService.updatePowerinfo(powerinfo));
 	}
 	
