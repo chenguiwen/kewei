@@ -33,7 +33,11 @@ public class PowerinfoServiceImpl implements IPowerinfoService
 	{
 	    return powerinfoMapper.selectPowerinfoById(powerInfoId);
 	}
+    @Transactional
     public List<Powerinfo> selectPowerinfoByIds(String powerInfoIds){
+    	//1\
+    	//2\
+    	//3\
     	return powerinfoMapper.selectPowerinfoByIds(Convert.toStrArray(powerInfoIds));
     }
 	/**
