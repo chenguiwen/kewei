@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<meta charset="utf-8">
+<head>
+	<th:block th:include="include :: header('新增电厂')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-powerinfo-add">
+            <input name="department" type="hidden" id="treeId"/>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label ">部门：</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                    	<input name="departmentName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control" required>
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">A线有功反向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode01" name="powerCode01" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">A线有功正向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode02" name="powerCode02" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">B线有功反向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode03" name="powerCode03" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">B线有功正向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode04" name="powerCode04" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">C线有功反向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode05" name="powerCode05" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">C线有功正向(总)：</label>
+				<div class="col-sm-8">
+					<input id="powerCode06" name="powerCode06" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#1机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum01" name="powerNum01" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#2机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum02" name="powerNum02" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#3机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum03" name="powerNum03" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#4机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum04" name="powerNum04" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#5机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum05" name="powerNum05" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">#6机组：</label>
+				<div class="col-sm-8">
+					<input id="powerNum06" name="powerNum06" class="form-control" type="text">
+				</div>
+			</div>
+
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/powerinfo"
+		$("#form-powerinfo-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-powerinfo-add').serialize());
+	        }
+	    }
+		
+		
+		/*部门管理-新增-选择父部门树*/
+        function selectDeptTree() {
+        	var treeId = $("#treeId").val();
+        	var company = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
+        	var url = ctx + "system/dept/selectDeptTree/" + company;
+			var options = {
+				title: '部门选择',
+				width: "380",
+				url: url,
+				callBack: doSubmit
+			};
+			$.modal.openOptions(options);
+		}
+		
+		
+		function doSubmit(index, layero){
+			var body = layer.getChildFrame('body', index);
+   			$("#treeId").val(body.find('#treeId').val());
+   			$("#treeName").val(body.find('#treeName').val());
+   			layer.close(index);
+		}
+
+		
+	</script>
+</body>
+</html>

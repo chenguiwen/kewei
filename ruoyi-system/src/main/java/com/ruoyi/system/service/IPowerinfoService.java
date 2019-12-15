@@ -3,6 +3,8 @@ package com.ruoyi.system.service;
 import com.ruoyi.system.domain.Powerinfo;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * 电厂 服务层
  * 
@@ -41,7 +43,9 @@ public interface IPowerinfoService
      * @param powerinfo 电厂信息
      * @return 结果
      */
+	@Transactional
 	public int updatePowerinfo(Powerinfo powerinfo);
+	@Transactional(rollbackFor = Exception.class)
 	public int updatePowerinfos(List<Powerinfo> powerinfo);
 		
 	/**

@@ -28,15 +28,15 @@ import com.ruoyi.framework.util.ShiroUtils;
  * @date 2019-08-28
  */
 @Controller
-@RequestMapping("/system/powernum")
+@RequestMapping("/power/powernum")
 public class PowernumController extends BaseController
 {
-    private String prefix = "system/powernum";
+    private String prefix = "power/powernum";
 	
 	@Autowired
 	private IPowernumService powernumService;
 	
-	@RequiresPermissions("system:powernum:view")
+	@RequiresPermissions("power:powernum:view")
 	@GetMapping()
 	public String powernum()
 	{
@@ -46,7 +46,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 查询电力公司列表
 	 */
-	@RequiresPermissions("system:powernum:list")
+	@RequiresPermissions("power:powernum:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(Powernum powernum)
@@ -60,7 +60,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 导出电力公司列表
 	 */
-	@RequiresPermissions("system:powernum:export")
+	@RequiresPermissions("power:powernum:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Powernum powernum)
@@ -82,7 +82,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 新增保存电力公司
 	 */
-	@RequiresPermissions("system:powernum:add")
+	@RequiresPermissions("power:powernum:add")
 	@Log(title = "电力公司", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
@@ -109,7 +109,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 修改保存电力公司
 	 */
-	@RequiresPermissions("system:powernum:edit")
+	@RequiresPermissions("power:powernum:edit")
 	@Log(title = "电力公司", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
@@ -123,7 +123,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 提交电力公司
 	 * */
-//	@RequiresPermissions("system:powernum:commit")
+//	@RequiresPermissions("power:powernum:commit")
 	@Log(title = "电力公司", businessType = BusinessType.UPDATE)
 	@PostMapping("/commit")
 	@ResponseBody
@@ -138,7 +138,7 @@ public class PowernumController extends BaseController
 	/**
 	 * 删除电力公司
 	 */
-	@RequiresPermissions("system:powernum:remove")
+	@RequiresPermissions("power:powernum:remove")
 	@Log(title = "电力公司", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody

@@ -3,6 +3,8 @@ package com.ruoyi.system.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ruoyi.system.mapper.PowerinfoMapper;
 import com.ruoyi.system.domain.Powerinfo;
 import com.ruoyi.system.service.IPowerinfoService;
@@ -65,10 +67,13 @@ public class PowerinfoServiceImpl implements IPowerinfoService
      * @return 结果
      */
 	@Override
+	@Transactional
 	public int updatePowerinfo(Powerinfo powerinfo)
 	{
+		
 	    return powerinfoMapper.updatePowerinfo(powerinfo);
 	}
+	@Transactional
 	public int updatePowerinfos(List<Powerinfo> powerinfos) {
 		if(1 >= powerinfos.size()) {
 			return powerinfoMapper.updatePowerinfo(powerinfos.get(0));

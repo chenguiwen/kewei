@@ -30,15 +30,15 @@ import com.ruoyi.framework.util.ShiroUtils;
  * @date 2019-08-28
  */
 @Controller
-@RequestMapping("/system/powerinfo")
+@RequestMapping("/power/powerinfo")
 public class PowerinfoController extends BaseController
 {
-    private String prefix = "system/powerinfo";
+    private String prefix = "power/powerinfo";
 	
 	@Autowired
 	private IPowerinfoService powerinfoService;
 	
-	@RequiresPermissions("system:powerinfo:view")
+	@RequiresPermissions("power:powerinfo:view")
 	@GetMapping()
 	public String powerinfo()
 	{
@@ -48,7 +48,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 查询电厂列表
 	 */
-	@RequiresPermissions("system:powerinfo:list")
+	@RequiresPermissions("power:powerinfo:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(Powerinfo powerinfo)
@@ -62,7 +62,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 导出电厂列表
 	 */
-	@RequiresPermissions("system:powerinfo:export")
+	@RequiresPermissions("power:powerinfo:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Powerinfo powerinfo)
@@ -84,7 +84,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 新增保存电厂
 	 */
-	@RequiresPermissions("system:powerinfo:add")
+	@RequiresPermissions("power:powerinfo:add")
 	@Log(title = "电厂", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
@@ -111,7 +111,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 修改保存电厂
 	 */
-	@RequiresPermissions("system:powerinfo:edit")
+	@RequiresPermissions("power:powerinfo:edit")
 	@Log(title = "电厂", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
@@ -125,7 +125,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 删除电厂
 	 */
-	@RequiresPermissions("system:powerinfo:remove")
+	@RequiresPermissions("power:powerinfo:remove")
 	@Log(title = "电厂", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
@@ -137,7 +137,7 @@ public class PowerinfoController extends BaseController
 	/**
 	 * 提交电厂表单
 	 * */
-	@RequiresPermissions("system:powerinfo:commit")
+	@RequiresPermissions("power:powerinfo:commit")
 	@Log(title = "电厂", businessType = BusinessType.DELETE)
 	@PostMapping( "/commit")
 	@ResponseBody
@@ -146,7 +146,7 @@ public class PowerinfoController extends BaseController
 		List<Powerinfo> powerinfos = powerinfoService.selectPowerinfoByIds(ids);
 		for (int i = 0; i < powerinfos.size(); i++) {
 			Powerinfo powerinfo = (Powerinfo) powerinfos.get(i);
-			powerinfo.setStatus("1");
+			powerinfo.setStatus("2");
 		}
 		return toAjax(powerinfoService.updatePowerinfos(powerinfos));
 	}
