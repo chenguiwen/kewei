@@ -3,6 +3,7 @@ package com.ruoyi.system.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ruoyi.system.mapper.PowerinfoMapper;
@@ -16,6 +17,7 @@ import com.ruoyi.common.core.text.Convert;
  * @author ruoyi
  * @date 2019-08-28
  */
+@EnableTransactionManagement
 @Service
 public class PowerinfoServiceImpl implements IPowerinfoService 
 {
