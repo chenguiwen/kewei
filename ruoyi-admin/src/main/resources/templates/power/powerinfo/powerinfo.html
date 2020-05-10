@@ -80,7 +80,7 @@
 				</form>
 			</div>
 			
-	        <div class="btn-group-sm" id="toolbar" role="group">
+	        <div class="btn-group" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="power:powerinfo:add">
 					<i class="fa fa-plus"></i> 新增
 				</a>
@@ -91,8 +91,43 @@
 					<i class="fa fa-remove"></i> 删除
 				</a>
 				<a class="btn btn-warning btn-commit disabled" onclick="$.operate.commit()" shiro:hasPermission="power:powerinfo:commit">
-						<i class="fa fa-upload"></i> 提交
-				 </a>
+					<i class="fa fa-upload"></i> 提交
+				</a>				 
+                <div class="btn-group">
+                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">运算 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+							<a onclick="$.operate.calculate1()">
+								电能表倍率
+							</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+							<a onclick="$.operate.calculate2()">
+								启备变电量
+							</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+							<a onclick="$.operate.calculate3()">
+								高备变电量
+							</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+							<a onclick="$.operate.calculate4()">
+								总电量
+							</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+							<a onclick="$.operate.calculate5()">
+								送端电量
+							</a>
+                        </li>
+                    </ul>
+                </div>				 
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -113,6 +148,11 @@
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
 				commitUrl: prefix + "/commit",
+				calculate1Url: prefix + "/calculate1",
+				calculate2Url: prefix + "/calculate2",
+				calculate3Url: prefix + "/calculate3",
+				calculate4Url: prefix + "/calculate4",
+				calculate5Url: prefix + "/calculate5",
                 modalName: "电厂",
 		        showExport: true,
                 columns: [{
@@ -137,6 +177,10 @@
 					field : 'dept.deptName', 
 					title : '所属电厂',
 					sortable: true
+				},
+				{
+					field : 'result', 
+					title : '计算结果'
 				},
 				{
 					field : 'powerCode01', 

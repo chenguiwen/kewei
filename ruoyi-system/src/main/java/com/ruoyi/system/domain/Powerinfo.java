@@ -50,6 +50,8 @@ public class Powerinfo extends BaseEntity
 	private String status;
 	/** 部门 */
 	private Long department;
+	/** 计算结果 */
+	private BigDecimal result;
 	/** 表单时间 */
 	private Date billDate;
     /** 部门对象 */
@@ -194,6 +196,14 @@ public class Powerinfo extends BaseEntity
 	{
 		return department;
 	}
+	public BigDecimal getResult() {
+		return result;
+	}
+
+	public void setResult(BigDecimal result) {
+		this.result = result;
+	}
+
 	public void setBillDate(Date billDate) 
 	{
 		this.billDate = billDate;
@@ -238,6 +248,7 @@ public class Powerinfo extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("department", getDepartment())
             .append("billDate", getBillDate())
+            .append("result", getResult())
             .toString();
     }
 }

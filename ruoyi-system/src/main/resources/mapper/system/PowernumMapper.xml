@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="powerNum05"    column="powerNum05"    />
         <result property="powerNum06"    column="powerNum06"    />
         <result property="remark"    column="remark"    />
+        <result property="result"    column="result"    />
         <result property="status"    column="status"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
@@ -34,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="selectPowernumVo">
         select 
         	powerInfoId, powerNum01, powerNum02, powerNum03, powerNum04, powerNum05, powerNum06, 
-        	remark, status, create_by, create_time, update_by, update_time, department, bill_date 
+        	remark, result, status, create_by, create_time, update_by, update_time, department, bill_date 
         from sys_powernum
     </sql>
 	
@@ -42,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select sys_powernum.powerInfoId, sys_powernum.powerNum01,
 		sys_powernum.powerNum02, sys_powernum.powerNum03,
 		sys_powernum.powerNum04, sys_powernum.powerNum05,
-		sys_powernum.powerNum06, sys_powernum.remark, sys_powernum.status,
+		sys_powernum.powerNum06, sys_powernum.remark, sys_powernum.result, sys_powernum.status,
 		sys_powernum.create_by, sys_powernum.create_time,
 		sys_powernum.update_by, sys_powernum.update_time,
 		sys_powernum.department,sys_powernum.bill_date,sys_dept.dept_name,sys_dept.leader from sys_powernum
@@ -73,7 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectPowernumById" parameterType="Long" resultMap="PowernumResult">
         <include refid="selectPowernumVo"/>
-        where powerInfoId = #{powerInfoId}
+        where powerInfoId = #{array}
+    </select>
+    <select id="selectPowernumByIds" parameterType="String" resultMap="PowernumResult">
+        <include refid="selectPowernumVo"/>
+	    where powerInfoId in 
+        <foreach item="powerInfoId" collection="array" open="(" separator="," close=")">
+            #{array}
+        </foreach>
     </select>
     
         
@@ -123,6 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="powerNum05 != null  ">powerNum05 = #{powerNum05},</if>
             <if test="powerNum06 != null  ">powerNum06 = #{powerNum06},</if>
             <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="result != null  and result != ''  ">result = #{result},</if>
             <if test="status != null  and status != ''  ">status = #{status},</if>
             <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
             <if test="createTime != null  ">create_time = #{createTime},</if>

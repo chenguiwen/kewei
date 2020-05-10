@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -138,7 +140,7 @@ public class PowerinfoController extends BaseController
 	 * 提交电厂表单
 	 * */
 	@RequiresPermissions("power:powerinfo:commit")
-	@Log(title = "电厂", businessType = BusinessType.DELETE)
+	@Log(title = "电厂", businessType = BusinessType.COMMIT)
 	@PostMapping( "/commit")
 	@ResponseBody
 	public AjaxResult commitBill(String ids)
@@ -150,5 +152,134 @@ public class PowerinfoController extends BaseController
 		}
 		return toAjax(powerinfoService.updatePowerinfos(powerinfos));
 	}
+
+	/**
+	 * 计算电厂表单
+	 * */
+	@Log(title = "电厂", businessType = BusinessType.CALCULATE1)
+	@PostMapping( "/calculate1")
+	@ResponseBody
+	public AjaxResult calculate1(String ids)
+	{		
+		startPage();
+        List<Powerinfo> returnResult = new ArrayList<Powerinfo>();        
+        List<Powerinfo> list = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < list.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) list.get(i);
+			BigDecimal result = new BigDecimal(0);
+			result = result.add(powerinfo.getPowerNum01());
+			result = result.add(powerinfo.getPowerNum02());
+			result = result.add(powerinfo.getPowerNum03());
+			result = result.add(powerinfo.getPowerNum04());
+			result = result.add(powerinfo.getPowerNum05());
+			result = result.add(powerinfo.getPowerNum06());
+			result = result.add(powerinfo.getPowerCode01());
+			result = result.add(powerinfo.getPowerCode02());
+			result = result.add(powerinfo.getPowerCode03());
+			result = result.add(powerinfo.getPowerCode04());
+			result = result.add(powerinfo.getPowerCode05());
+			result = result.add(powerinfo.getPowerCode06());
+			powerinfo.setResult(result);
+			returnResult.add(powerinfo);
+		}
+		return toAjax(powerinfoService.updatePowerinfos(returnResult));
+	}
+
+	/**
+	 * 计算电厂表单
+	 * */
+	@Log(title = "电厂", businessType = BusinessType.CALCULATE2)
+	@PostMapping( "/calculate2")
+	@ResponseBody
+	public AjaxResult calculate2(String ids)
+	{		
+		startPage();
+        List<Powerinfo> returnResult = new ArrayList<Powerinfo>();        
+        List<Powerinfo> list = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < list.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) list.get(i);
+			BigDecimal result = new BigDecimal(0);
+			result = result.add(powerinfo.getPowerNum01());
+			result = result.add(powerinfo.getPowerNum02());
+			result = result.add(powerinfo.getPowerNum03());
+			powerinfo.setResult(result);
+			returnResult.add(powerinfo);
+		}
+		return toAjax(powerinfoService.updatePowerinfos(returnResult));
+	}
+
+	/**
+	 * 计算电厂表单3
+	 * */
+	@Log(title = "电厂", businessType = BusinessType.CALCULATE3)
+	@PostMapping( "/calculate3")
+	@ResponseBody
+	public AjaxResult calculate3(String ids)
+	{		
+		startPage();
+        List<Powerinfo> returnResult = new ArrayList<Powerinfo>();        
+        List<Powerinfo> list = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < list.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) list.get(i);
+			BigDecimal result = new BigDecimal(0);
+			result = result.add(powerinfo.getPowerNum01());
+			result = result.add(powerinfo.getPowerNum02());
+			result = result.add(powerinfo.getPowerNum03());
+			result = result.add(powerinfo.getPowerNum04());
+			powerinfo.setResult(result);
+			returnResult.add(powerinfo);
+		}
+		return toAjax(powerinfoService.updatePowerinfos(returnResult));
+	}
+
+	/**
+	 * 计算电厂表单4
+	 * */
+	@Log(title = "电厂", businessType = BusinessType.CALCULATE4)
+	@PostMapping( "/calculate4")
+	@ResponseBody
+	public AjaxResult calculate4(String ids)
+	{		
+		startPage();
+        List<Powerinfo> returnResult = new ArrayList<Powerinfo>();        
+        List<Powerinfo> list = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < list.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) list.get(i);
+			BigDecimal result = new BigDecimal(0);
+			result = result.add(powerinfo.getPowerNum01());
+			result = result.add(powerinfo.getPowerNum03());
+			result = result.add(powerinfo.getPowerNum05());
+			powerinfo.setResult(result);
+			returnResult.add(powerinfo);
+		}
+		return toAjax(powerinfoService.updatePowerinfos(returnResult));
+	}
+
+	/**
+	 * 计算电厂表单5
+	 * */
+	@Log(title = "电厂", businessType = BusinessType.CALCULATE5)
+	@PostMapping( "/calculate5")
+	@ResponseBody
+	public AjaxResult calculate5(String ids)
+	{		
+		startPage();
+        List<Powerinfo> returnResult = new ArrayList<Powerinfo>();        
+        List<Powerinfo> list = powerinfoService.selectPowerinfoByIds(ids);
+		for (int i = 0; i < list.size(); i++) {
+			Powerinfo powerinfo = (Powerinfo) list.get(i);
+			BigDecimal result = new BigDecimal(0);
+			result = result.add(powerinfo.getPowerNum01());
+			result = result.add(powerinfo.getPowerNum02());
+			result = result.add(powerinfo.getPowerNum03());
+			result = result.add(powerinfo.getPowerNum04());
+			result = result.add(powerinfo.getPowerNum05());
+			result = result.add(powerinfo.getPowerNum06());
+			powerinfo.setResult(result);
+			returnResult.add(powerinfo);
+		}
+		return toAjax(powerinfoService.updatePowerinfos(returnResult));
+	}
+
 	
 }

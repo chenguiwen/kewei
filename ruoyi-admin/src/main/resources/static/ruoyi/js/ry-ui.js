@@ -141,7 +141,8 @@
             		$('#' + $.table._option.toolbar + ' .btn-edit').toggleClass('disabled', rows.length!=1);
             		$('#' + $.table._option.toolbar + ' .btn-detail').toggleClass('disabled', rows.length!=1);
             		//add by chengw
-            		$('#' + $.table._option.toolbar + ' .btn-commit').toggleClass('disabled', rows.length < 1);
+            		$('#' + $.table._option.toolbar + ' .btn-commit').toggleClass('disabled', !rows.length);
+            		$('#' + $.table._option.toolbar + ' .btn-calculate').toggleClass('disabled', !rows.length);
             		//add by chengw
             	});
             	// 绑定选中事件、取消事件、全部选中、全部取消
@@ -797,7 +798,7 @@
         			$.operate.submit(url, "post", "json", data);
         		});
             },
-            // 批量删除信息
+            // 批量提交信息
             commit: function() {
         		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
         		if (rows.length == 0) {
@@ -806,6 +807,71 @@
         		}
         		$.modal.confirm("确认要提交选中的" + rows.length + "条数据吗?", function() {
         			var url = $.table._option.commitUrl;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
+            // 计算数据信息
+            calculate1: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要计算选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.calculate1Url;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
+            // 计算数据信息
+            calculate2: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要计算选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.calculate2Url;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
+            // 计算数据信息
+            calculate3: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要计算选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.calculate3Url;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
+            // 计算数据信息
+            calculate4: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要计算选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.calculate4Url;
+        			var data = { "ids": rows.join() };
+        			$.operate.submit(url, "post", "json", data);
+        		});
+            },
+            // 计算数据信息
+            calculate5: function() {
+        		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        		if (rows.length == 0) {
+        			$.modal.alertWarning("请至少选择一条记录");
+        			return;
+        		}
+        		$.modal.confirm("确认要计算选中的" + rows.length + "条数据吗?", function() {
+        			var url = $.table._option.calculate5Url;
         			var data = { "ids": rows.join() };
         			$.operate.submit(url, "post", "json", data);
         		});

@@ -17,8 +17,9 @@ public interface PowernumMapper
      * @param powerInfoId 电力公司ID
      * @return 电力公司信息
      */
-	public Powernum selectPowernumById(Long powerInfoId);
-	public Powernum selectPowernumByIds(String[] powerInfoIds);
+	public Powernum selectPowernumById(Long powernumId);
+	public Powernum selectPowernumById(String[] powernumIds);
+	public List<Powernum> selectPowernumByIds(String[] powernumIds);
 	
 	/**
      * 查询电力公司列表
@@ -50,7 +51,7 @@ public interface PowernumMapper
      * @param powerInfoId 电力公司ID
      * @return 结果
      */
-	public int deletePowernumById(Long powerInfoId);
+	public int deletePowernumById(Long powernumId);
 	
 	/**
      * 批量删除电力公司
@@ -58,6 +59,6 @@ public interface PowernumMapper
      * @param powerInfoIds 需要删除的数据ID
      * @return 结果
      */
-	public int deletePowernumByIds(String[] powerInfoIds);
+	public int deletePowernumByIds(String[] powernumIds);
 	
 }

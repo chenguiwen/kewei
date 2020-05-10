@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PowerdataMapper">
+    
+    <resultMap type="Powerdata" id="PowerdataResult">
+        <result property="powerdataId"    column="powerdataId"    />
+        <result property="powerinfo"    column="powerinfo"    />
+        <result property="powernum"    column="powernum"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="department"    column="department"    />
+        <result property="billDate"    column="bill_date"    />
+		<association property="dept" column="department"	javaType="SysDept" resultMap="deptResult" />
+    </resultMap>
+	<resultMap id="deptResult" type="SysDept">
+		<id property="deptId" column="dept_id" />
+		<result property="parentId" column="parent_id" />
+		<result property="deptName" column="dept_name" />
+		<result property="orderNum" column="order_num" />
+		<result property="leader" column="leader" />
+		<result property="status" column="dept_status" />
+	</resultMap>
+	
+	<sql id="selectPowerdataVo">
+        select powerdataId, powerinfo, powernum, remark, create_by, create_time, update_by, update_time, department, bill_date from sys_powerdata
+    </sql>
+	
+    <select id="selectPowerdataList" parameterType="Powerdata" resultMap="PowerdataResult">
+        select sys_powerdata.powerdataId, sys_powerdata.powerinfo, sys_powerdata.powernum, 
+        sys_powerdata.remark, sys_powerdata.create_by, sys_powerdata.create_time, 
+        sys_powerdata.update_by, sys_powerdata.update_time, sys_powerdata.department, 
+        sys_powerdata.bill_date, sys_dept.dept_name,sys_dept.leader  from sys_powerdata
+		left join sys_dept on sys_powerdata.department = sys_dept.dept_id
+        <where>  
+            <if test="powerdataId != null "> and powerdataId = #{powerdataId}</if>
+             <if test="powerinfo != null  and powerinfo != '' "> and powerinfo = #{powerinfo}</if>
+             <if test="powernum != null  and powernum != '' "> and powernum = #{powernum}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+             <if test="createBy != null  and createBy != '' "> and sys_powerdata.create_by = #{createBy}</if>
+             <if test="createTime != null "> and sys_powerdata.create_time = #{createTime}</if>
+             <if test="updateBy != null  and updateBy != '' "> and sys_powerdata.update_by = #{updateBy}</if>
+             <if test="updateTime != null "> and sys_powerdata.update_time = #{updateTime}</if>
+             <if test="department != null "> and sys_powerdata.department = #{department}</if>
+             <if test="billDate != null "> and sys_powerdata.bill_date = #{billDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectPowerdataById" parameterType="Long" resultMap="PowerdataResult">
+        <include refid="selectPowerdataVo"/>
+        where powerdataId = #{powerdataId}
+    </select>
+        
+    <insert id="insertPowerdata" parameterType="Powerdata" useGeneratedKeys="true" keyProperty="powerdataId">
+        insert into sys_powerdata
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="powerinfo != null  and powerinfo != ''  ">powerinfo,</if>
+			<if test="powernum != null  and powernum != ''  ">powernum,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			<if test="updateTime != null  ">update_time,</if>
+			<if test="department != null  ">department,</if>
+			<if test="billDate != null  ">bill_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="powerinfo != null  and powerinfo != ''  ">#{powerinfo},</if>
+			<if test="powernum != null  and powernum != ''  ">#{powernum},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="department != null  ">#{department},</if>
+			<if test="billDate != null  ">#{billDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updatePowerdata" parameterType="Powerdata">
+        update sys_powerdata
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="powerinfo != null  and powerinfo != ''  ">powerinfo = #{powerinfo},</if>
+            <if test="powernum != null  and powernum != ''  ">powernum = #{powernum},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="department != null  ">department = #{department},</if>
+            <if test="billDate != null  ">bill_date = #{billDate},</if>
+        </trim>
+        where powerdataId = #{powerdataId}
+    </update>
+
+	<delete id="deletePowerdataById" parameterType="Long">
+        delete from sys_powerdata where powerdataId = #{powerdataId}
+    </delete>
+	
+    <delete id="deletePowerdataByIds" parameterType="String">
+        delete from sys_powerdata where powerdataId in 
+        <foreach item="powerdataId" collection="array" open="(" separator="," close=")">
+            #{powerdataId}
+        </foreach>
+    </delete>
+    
+</mapper>

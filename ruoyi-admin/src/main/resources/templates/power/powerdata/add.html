@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增电力数据导出')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-powerdata-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发电厂数据：</label>
+				<div class="col-sm-8">
+	                <label class="toggle-switch switch-solid">
+	                    <input type="checkbox" id="powerinfo" name="powerinfo" checked>
+	                    <span></span>
+	                </label>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">电力公司数据：</label>
+				<div class="col-sm-8">
+	                <label class="toggle-switch switch-solid">
+	                    <input type="checkbox" id="powernum" name="powernum" checked>
+	                    <span></span>
+	                </label>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出部门数据：</label>
+	            <input name="department" type="hidden" id="treeId"/>
+				<div class="col-sm-8">
+                    <div class="input-group">
+                    	<input name="departmentName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="所属部门" class="form-control">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                    </div>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "power/powerdata"
+		$("#form-powerdata-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-powerdata-add').serialize());
+	        }
+	    }
+
+		/*部门管理-新增-选择父部门树*/
+        function selectDeptTree() {
+        	var treeId = $("#treeId").val();
+        	var department = $.common.isEmpty(treeId) ? "100" : $("#treeId").val();
+        	var url = ctx + "system/dept/selectDeptTree/" + department;
+			var options = {
+				title: '部门选择',
+				width: "380",
+				url: url,
+				callBack: doSubmit
+			};
+			$.modal.openOptions(options);
+		}
+		function doSubmit(index, layero){
+			var body = layer.getChildFrame('body', index);
+   			$("#treeId").val(body.find('#treeId').val());
+   			$("#treeName").val(body.find('#treeName').val());
+   			layer.close(index);
+		}
+
+	</script>
+</body>
+</html>

@@ -61,4 +61,30 @@ public enum BusinessType
      * 提交
      * */
     COMMIT,
+    
+    /**
+     * 提交1
+     * */
+    CALCULATE1,
+
+    /**
+     * 提交2
+     * */
+    CALCULATE2,
+    
+    /**
+     * 提交3
+     * */
+    CALCULATE3,
+    
+    /**
+     * 提交4
+     * */
+    CALCULATE4,
+    
+    /**
+     * 提交5
+     * */
+    CALCULATE5,
+
 }

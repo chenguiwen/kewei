@@ -3,6 +3,8 @@ package com.ruoyi.system.service;
 import com.ruoyi.system.domain.Powernum;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * 电力公司 服务层
  * 
@@ -18,7 +20,8 @@ public interface IPowernumService
      * @return 电力公司信息
      */
 	public Powernum selectPowernumById(Long powerInfoId);
-	public Powernum selectPowernumById(String ids);
+	public Powernum selectPowernumById(String id);
+	public List<Powernum> selectPowernumByIds(String ids);
 	
 	/**
      * 查询电力公司列表
@@ -43,7 +46,9 @@ public interface IPowernumService
      * @return 结果
      */
 	public int updatePowernum(Powernum powernum);
-		
+	@Transactional(rollbackFor = Exception.class)
+	public int updatePowernums(List<Powernum> powernum);
+
 	/**
      * 删除电力公司信息
      * 

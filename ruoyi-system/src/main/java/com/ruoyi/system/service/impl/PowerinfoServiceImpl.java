@@ -19,6 +19,7 @@ import com.ruoyi.common.core.text.Convert;
  */
 @EnableTransactionManagement
 @Service
+@Transactional
 public class PowerinfoServiceImpl implements IPowerinfoService 
 {
 	@Autowired

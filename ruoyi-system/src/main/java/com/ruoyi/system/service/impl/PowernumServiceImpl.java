@@ -1,8 +1,11 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ruoyi.system.mapper.PowernumMapper;
 import com.ruoyi.system.domain.Powernum;
 import com.ruoyi.system.service.IPowernumService;
@@ -15,6 +18,7 @@ import com.ruoyi.common.core.text.Convert;
  * @date 2019-08-28
  */
 @Service
+@Transactional
 public class PowernumServiceImpl implements IPowernumService 
 {
 	@Autowired
@@ -31,8 +35,16 @@ public class PowernumServiceImpl implements IPowernumService
 	{
 	    return powernumMapper.selectPowernumById(powerInfoId);
 	}
-	public Powernum selectPowernumById(String ids) {
-	    return powernumMapper.selectPowernumByIds(Convert.toStrArray(ids));		
+	public Powernum selectPowernumById(String powernumIds) {
+	    return powernumMapper.selectPowernumById(Convert.toStrArray(powernumIds));		
+	}
+	public List<Powernum> selectPowernumByIds(String powernumIds) {
+		List<Powernum> list = new ArrayList<Powernum>();
+		String[] ids = Convert.toStrArray(powernumIds);
+		for (int i = 0; i < ids.length; i++) {
+			list.add(powernumMapper.selectPowernumById(Convert.toStrArray(ids[i])));
+		}
+	    return list;		
 	}
 	
 	/**
@@ -69,6 +81,21 @@ public class PowernumServiceImpl implements IPowernumService
 	public int updatePowernum(Powernum powernum)
 	{
 	    return powernumMapper.updatePowernum(powernum);
+	}
+	@Transactional
+	public int updatePowernums(List<Powernum> powernums) {
+		if(1 >= powernums.size()) {
+			return powernumMapper.updatePowernum(powernums.get(0));
+		}
+		else {
+			for (int i = 0; i < powernums.size(); i++) {
+				powernumMapper.updatePowernum(powernums.get(i));
+				if(i == powernums.size()-1) {
+					return powernumMapper.updatePowernum(powernums.get(i));
+				}
+			}
+			return powernumMapper.updatePowernum(powernums.get(powernums.size()-1));
+		}
 	}
 
 	/**

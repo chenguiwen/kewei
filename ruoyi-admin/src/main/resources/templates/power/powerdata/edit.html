@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改电力数据导出')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-powerdata-edit" th:object="${powerdata}">
+            <input id="powerdataId" name="powerdataId" th:field="*{powerdataId}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发电厂数据：</label>
+				<div class="col-sm-8">
+					<input id="powerinfo" name="powerinfo" th:field="*{powerinfo}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">电力公司数据：</label>
+				<div class="col-sm-8">
+					<input id="powernum" name="powernum" th:field="*{powernum}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出创建员创建数据：</label>
+				<div class="col-sm-8">
+					<input id="createBy" name="createBy" th:field="*{createBy}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出创建时间内数据：</label>
+				<div class="col-sm-8">
+					<input id="createTime" name="createTime" th:field="*{createTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出操作员更新数据：</label>
+				<div class="col-sm-8">
+					<input id="updateBy" name="updateBy" th:field="*{updateBy}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出更新时间内数据：</label>
+				<div class="col-sm-8">
+					<input id="updateTime" name="updateTime" th:field="*{updateTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出部门数据：</label>
+				<div class="col-sm-8">
+					<input id="department" name="department" th:field="*{department}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">导出表单时间内数据：</label>
+				<div class="col-sm-8">
+					<input id="billDate" name="billDate" th:field="*{billDate}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/powerdata";
+		$("#form-powerdata-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-powerdata-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
