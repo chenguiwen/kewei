@@ -312,12 +312,23 @@ public class ExcelUtil<T>
             // 取出一共有多少个sheet.
             double sheetNo = Math.ceil(list.size() / sheetSize);
             
-            // 产生一行标题
-            Row titleRow = sheet.createRow(0);
-            CellRangeAddress cellRangeAddress =new CellRangeAddress(0, 1, 0, fields.size());
-            sheet.addMergedRegion(cellRangeAddress);
-            Cell mergeCell = titleRow.createCell(fields.size());
-            mergeCell.setCellValue("电厂数据");
+//            if (StringUtils.isNotEmpty(sheetName))
+//            {
+//                // 如果指定sheet名,则取指定sheet中的内容.
+//                sheet = wb.createSheet();
+////                sheet = wb.getSheetAt(0);
+//            }
+//            else
+//            {
+//                // 如果传入的sheet名不存在则默认指向第1个sheet.
+//                sheet = wb.getSheetAt(0);
+//            }
+//            // 产生一行标题
+//            Row titleRow = sheet.createRow(0);
+//            CellRangeAddress cellRangeAddress =new CellRangeAddress(0, 0, 0, fields.size());
+//            sheet.addMergedRegion(cellRangeAddress);
+//            Cell mergeCell = titleRow.createCell(fields.size());
+//            mergeCell.setCellValue("电厂数据");
 
             for (int index = 0; index <= sheetNo; index++)
             {

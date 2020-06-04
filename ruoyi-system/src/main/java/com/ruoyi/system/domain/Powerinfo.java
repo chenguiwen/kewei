@@ -23,28 +23,60 @@ public class Powerinfo extends BaseEntity
 	/** 电厂id */
 	private Long powerInfoId;
 	/** A线有功反向(总) */
+    @Excel(name = "A线有功反向(总)")//, targetAttr = "powerCode01", type = Type.EXPORT)
 	private BigDecimal powerCode01;
 	/** A线有功正向(总) */
+    @Excel(name = "A线有功正向(总)")//, targetAttr = "powerCode01", type = Type.EXPORT)
 	private BigDecimal powerCode02;
 	/** B线有功反向(总) */
+//    @Excels({
+//        @Excel(name = "B线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerCode03;
 	/** B线有功正向(总) */
+//    @Excels({
+//        @Excel(name = "B线有功正向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerCode04;
 	/** C线有功反向(总) */
+//    @Excels({
+//        @Excel(name = "C线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerCode05;
 	/** C线有功正向(总) */
+//    @Excels({
+//        @Excel(name = "C线有功正向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerCode06;
 	/** #1机组 */
+//    @Excels({
+//        @Excel(name = "#1机组", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum01;
 	/** #2机组 */
+//    @Excels({
+//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum02;
 	/** #3机组 */
+//    @Excels({
+//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum03;
 	/** #4机组 */
+//    @Excels({
+//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum04;
 	/** #5机组 */
+//    @Excels({
+//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum05;
 	/** #6机组 */
+//    @Excels({
+//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
+//    })
 	private BigDecimal powerNum06;
 	/** 状态（0代表保存 2代表提交） */
 	private String status;

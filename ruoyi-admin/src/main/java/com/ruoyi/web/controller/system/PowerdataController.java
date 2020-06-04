@@ -77,8 +77,8 @@ public class PowerdataController extends BaseController
 		boolean isExportInfo = "1".equals(powerdata.getPowerinfo());
 		boolean isExportNum = "1".equals(powerdata.getPowernum());
 		
-    	List<Powerinfo> infolist = powerinfoService.selectPowerinfoList(null);
-    	List<Powernum> numlist = powernumService.selectPowernumList(null);
+    	List<Powerinfo> infolist = powerinfoService.selectPowerinfoList(new Powerinfo());
+    	List<Powernum> numlist = powernumService.selectPowernumList(new Powernum());
     	
         ExcelUtil<Powernum> util = new ExcelUtil<Powernum>(Powernum.class);
         return util.exportExcel(numlist, "powerdata");
