@@ -29,54 +29,34 @@ public class Powerinfo extends BaseEntity
     @Excel(name = "A线有功正向(总)")//, targetAttr = "powerCode01", type = Type.EXPORT)
 	private BigDecimal powerCode02;
 	/** B线有功反向(总) */
-//    @Excels({
-//        @Excel(name = "B线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "B线有功反向(总)")
 	private BigDecimal powerCode03;
 	/** B线有功正向(总) */
-//    @Excels({
-//        @Excel(name = "B线有功正向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "B线有功正向(总)")
 	private BigDecimal powerCode04;
 	/** C线有功反向(总) */
-//    @Excels({
-//        @Excel(name = "C线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "C线有功反向(总)")
 	private BigDecimal powerCode05;
 	/** C线有功正向(总) */
-//    @Excels({
-//        @Excel(name = "C线有功正向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "C线有功正向(总)")
 	private BigDecimal powerCode06;
 	/** #1机组 */
-//    @Excels({
-//        @Excel(name = "#1机组", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "#1机组")
 	private BigDecimal powerNum01;
 	/** #2机组 */
-//    @Excels({
-//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "A线有功反向(总)")
 	private BigDecimal powerNum02;
 	/** #3机组 */
-//    @Excels({
-//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "A线有功反向(总)")
 	private BigDecimal powerNum03;
 	/** #4机组 */
-//    @Excels({
-//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "A线有功反向(总)")
 	private BigDecimal powerNum04;
 	/** #5机组 */
-//    @Excels({
-//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "A线有功反向(总)")
 	private BigDecimal powerNum05;
 	/** #6机组 */
-//    @Excels({
-//        @Excel(name = "A线有功反向(总)", targetAttr = "powerCode01", type = Type.EXPORT),
-//    })
+    @Excel(name = "A线有功反向(总)")
 	private BigDecimal powerNum06;
 	/** 状态（0代表保存 2代表提交） */
 	private String status;
@@ -85,6 +65,7 @@ public class Powerinfo extends BaseEntity
 	/** 计算结果 */
 	private BigDecimal result;
 	/** 表单时间 */
+	@Excel(name="表单时间")
 	private Date billDate;
     /** 部门对象 */
     @Excels({

@@ -23,16 +23,22 @@ public class Powernum extends BaseEntity
 	/** 电厂id */
 	private Long powerInfoId;
 	/** 1.2#主变高压侧电量之和 */
+	@Excel(name="1.2#主变高压侧电量之和")
 	private BigDecimal powerNum01;
 	/** 1#机原始上网电量 */
+	@Excel(name="1#机原始上网电量")
 	private BigDecimal powerNum02;
 	/** 2#机原始上网电量 */
+	@Excel(name="2#机原始上网电量")
 	private BigDecimal powerNum03;
 	/** 供电侧电量 */
+	@Excel(name="供电侧电量")
 	private BigDecimal powerNum04;
 	/** 1#机结算上网电量 */
+	@Excel(name="1#机结算上网电量")
 	private BigDecimal powerNum05;
 	/** 2#机结算上网电量 */
+	@Excel(name="2#机结算上网电量")
 	private BigDecimal powerNum06;
 	/** 提交标志（0代表保存态 2代表提交态） */
 	private String status;
@@ -41,6 +47,7 @@ public class Powernum extends BaseEntity
 	/** 计算结果 */
 	private BigDecimal result;
 	/** 表单时间 */
+	@Excel(name="表单时间")
 	private Date billDate;
     /** 部门对象 */
     @Excels({
