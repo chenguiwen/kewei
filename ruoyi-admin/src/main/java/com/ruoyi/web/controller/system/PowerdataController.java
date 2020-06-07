@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.system.domain.ExportedData;
 import com.ruoyi.system.domain.Powerdata;
 import com.ruoyi.system.domain.Powerinfo;
 import com.ruoyi.system.domain.Powernum;
@@ -74,14 +76,24 @@ public class PowerdataController extends BaseController
 		if(null == powerdata) {
 			return null;
 		}
-		boolean isExportInfo = "1".equals(powerdata.getPowerinfo());
-		boolean isExportNum = "1".equals(powerdata.getPowernum());
+		boolean isExportInfo = true;//"1".equals(powerdata.getPowerinfo());
+		boolean isExportNum = true;//"1".equals(powerdata.getPowernum());
 		
-    	List<Powerinfo> infolist = powerinfoService.selectPowerinfoList(new Powerinfo());
-    	List<Powernum> numlist = powernumService.selectPowernumList(new Powernum());
-    	
-        ExcelUtil<Powernum> util = new ExcelUtil<Powernum>(Powernum.class);
-        return util.exportExcel(numlist, "powerdata");
+    	List<Powerinfo> infolist = null;
+    	if(isExportNum) {
+    		infolist = powerinfoService.selectPowerinfoList(new Powerinfo());
+    	}
+    	List<Powernum> numlist = null;
+    	if(isExportInfo) {
+    		numlist = powernumService.selectPowernumList(new Powernum());
+    	}
+    	List<ExportedData> list = new ArrayList<ExportedData>();
+    	ExportedData data = new ExportedData();
+    	data.setInfos(infolist);
+    	data.setNums(numlist);
+    	list.add(data);
+        ExcelUtil<ExportedData> util = new ExcelUtil<ExportedData>(ExportedData.class);
+        return util.exportExcel(list, "ExportedData");
     }
 	
 	/**

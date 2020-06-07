@@ -111,6 +111,9 @@ public class ExcelUtil<T>
         {
             list = new ArrayList<T>();
         }
+        for(int i = 0; i < list.size(); i ++) {
+        	Object o  = list.get(i).getClass();
+        }
         this.list = list;
         this.sheetName = sheetName;
         this.type = type;

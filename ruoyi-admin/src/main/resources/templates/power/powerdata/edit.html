@@ -10,13 +10,19 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">发电厂数据：</label>
 				<div class="col-sm-8">
-					<input id="powerinfo" name="powerinfo" th:field="*{powerinfo}" class="form-control" type="text">
+                    <label class="toggle-switch switch-solid">
+						<input id="powerinfos" name="powerinfos" th:checked="${powerdata.powerinfo == '1' ? true : false}" class="form-control" type="checkbox">
+                        <span></span>
+                    </label>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">电力公司数据：</label>
 				<div class="col-sm-8">
-					<input id="powernum" name="powernum" th:field="*{powernum}" class="form-control" type="text">
+                    <label class="toggle-switch switch-solid">
+						<input id="powernums" name="powernums"  th:checked="${powerdata.powernum == '1' ? true : false}" class="form-control" type="checkbox">
+                        <span></span>
+                    </label>
 				</div>
 			</div>
 			<div class="form-group">	
@@ -65,7 +71,7 @@
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
-		var prefix = ctx + "system/powerdata";
+		var prefix = ctx + "power/powerdata";
 		$("#form-powerdata-edit").validate({
 			rules:{
 				xxxx:{
@@ -77,7 +83,12 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-powerdata-edit').serialize());
+   	        	var data = $("#form-powerdata-edit").serializeArray();
+	        	var powernum = $("input[id='powernums']").is(':checked') == true ? 1 : 2;
+	        	var powerinfo = $("input[id='powerinfos']").is(':checked') == true ? 1 : 2;
+	        	data.push({"name": "powernum", "value": powernum});
+	        	data.push({"name": "powerinfo", "value": powerinfo});
+	            $.operate.save(prefix + "/edit", data);
 	        }
 	    }
 	</script>
