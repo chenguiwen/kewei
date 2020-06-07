@@ -23,6 +23,7 @@ import com.ruoyi.system.service.IPowernumService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 
 /**
@@ -79,21 +80,21 @@ public class PowerdataController extends BaseController
 		boolean isExportInfo = true;//"1".equals(powerdata.getPowerinfo());
 		boolean isExportNum = true;//"1".equals(powerdata.getPowernum());
 		
+//        List<BaseEntity> list = new ArrayList<BaseEntity>();
     	List<Powerinfo> infolist = null;
     	if(isExportNum) {
     		infolist = powerinfoService.selectPowerinfoList(new Powerinfo());
     	}
-    	List<Powernum> numlist = null;
+        ExcelUtil<Powerinfo> infoutil = new ExcelUtil<Powerinfo>(Powerinfo.class);
+        infoutil.exportExcel(infolist, "Powerinfo");
+
+        List<Powernum> numlist = null;
     	if(isExportInfo) {
     		numlist = powernumService.selectPowernumList(new Powernum());
     	}
-    	List<ExportedData> list = new ArrayList<ExportedData>();
-    	ExportedData data = new ExportedData();
-    	data.setInfos(infolist);
-    	data.setNums(numlist);
-    	list.add(data);
-        ExcelUtil<ExportedData> util = new ExcelUtil<ExportedData>(ExportedData.class);
-        return util.exportExcel(list, "ExportedData");
+    	
+        ExcelUtil<Powernum> numutil = new ExcelUtil<Powernum>(Powernum.class);
+        return numutil.exportExcel(numlist, "Powernum");
     }
 	
 	/**
