@@ -24,8 +24,10 @@ public class PageDomain
         {
             return "";
         }
-//        return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
-        return orderByColumn + " " + isAsc;
+        if(orderByColumn.contains("power")) {
+            return orderByColumn + " " + isAsc;        	
+        }
+        return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
     }
 
     public Integer getPageNum()
